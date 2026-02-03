@@ -1,4 +1,4 @@
-.global a
+.global a,b,c,d
 .section text
 iret
 ret
