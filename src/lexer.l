@@ -56,6 +56,7 @@
 "pc"  { return PROGRAM_COUNTER; }
 "psw" { return PROGRAM_STATUS_WORD; }
 
+
 "r"[0-7] { return REGISTER; }
 
 [a-zA-Z_][a-zA-Z0-9_]* {
@@ -66,6 +67,7 @@
 \n      { return EOL; }
 
 [ \t]+   { /* ignore */ }
+
 .        { return yytext[0]; }
 %%
 

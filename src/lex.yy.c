@@ -1038,12 +1038,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 59 "lexer.l"
+#line 60 "lexer.l"
 { return REGISTER; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 61 "lexer.l"
+#line 62 "lexer.l"
 {
     yylval.str = strdup(yytext);
     return SIMBOL;
@@ -1052,22 +1052,22 @@ YY_RULE_SETUP
 case 49:
 /* rule 49 can match eol */
 YY_RULE_SETUP
-#line 66 "lexer.l"
+#line 67 "lexer.l"
 { return EOL; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 68 "lexer.l"
+#line 69 "lexer.l"
 { /* ignore */ }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 69 "lexer.l"
+#line 71 "lexer.l"
 { return yytext[0]; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 70 "lexer.l"
+#line 72 "lexer.l"
 ECHO;
 	YY_BREAK
 #line 1074 "lex.yy.c"
@@ -2075,7 +2075,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 70 "lexer.l"
+#line 72 "lexer.l"
 
 
 int yywrap(void){ return 1; }

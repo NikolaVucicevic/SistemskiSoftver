@@ -40,20 +40,25 @@ lines:
 ;
 
 line:
-    direktiva EOL
-    |
-    labela EOL
-    |
-    naredba EOL {visitNaredba();}
-    |
-    direktiva
-    |
-    labela
-    |
-    naredba { visitNaredba();}
-    |
-    EOL
+  labels stmt_opt EOL
 ;
+
+labels:
+    /* prazno */
+  | labels labela
+;
+
+labela:
+    SIMBOL DVOTACKA
+;
+
+
+stmt_opt:
+    /* prazno */
+  | direktiva
+  | naredba
+;
+
 
 direktiva:
 GLOBAL SIMBOL {printf("Naisli smo na direktivu global\n"); }
@@ -73,8 +78,6 @@ EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); }
 END {printf("Naisli smo na direktivu end\n"); }
 ;
 
-labela:
-SIMBOL DVOTACKA {printf("Naisli smo na labelu"); }
 
 naredba:
     HALT 
