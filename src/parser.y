@@ -44,9 +44,13 @@ line:
     |
     labela EOL
     |
+    naredba EOL {visitNaredba();}
+    |
     direktiva
     |
     labela
+    |
+    naredba { visitNaredba();}
     |
     EOL
 ;
@@ -54,11 +58,30 @@ line:
 direktiva:
 GLOBAL SIMBOL {printf("Naisli smo na direktivu global"); }
 |
+EXTERN SIMBOL {printf("Naisli smo na direktivu extern"); }
+|
 SECTION SIMBOL {printf("Naisli smo na direktivu sekcije"); novaSekcija();}
+|
+WORD SIMBOL {printf("Naisli smo na direktivu word"); }
+|
+WORD NUMBER {printf("Naisli smo na direktivu word"); }
+|
+SKIP NUMBER {printf("Naisli smo na direktivu skip"); }
+|
+EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); }
+|
+END {printf("Naisli smo na direktivu end"); }
 ;
 
 labela:
 SIMBOL DVOTACKA {printf("Naisli smo na labelu"); }
+
+naredba:
+    HALT 
+    |
+    IRET
+    |
+    RET;
 
 
 
