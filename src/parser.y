@@ -36,7 +36,7 @@ input:
 
 lines:
     /* empty */
-  | lines line {printf("Naisli smo na linije \n");}
+  | lines line {}
 ;
 
 line:
@@ -56,21 +56,21 @@ line:
 ;
 
 direktiva:
-GLOBAL SIMBOL {printf("Naisli smo na direktivu global"); }
+GLOBAL SIMBOL {printf("Naisli smo na direktivu global\n"); }
 |
-EXTERN SIMBOL {printf("Naisli smo na direktivu extern"); }
+EXTERN SIMBOL {printf("Naisli smo na direktivu extern\n"); }
 |
-SECTION SIMBOL {printf("Naisli smo na direktivu sekcije"); novaSekcija();}
+SECTION SIMBOL {printf("Naisli smo na direktivu sekcije\n"); novaSekcija();}
 |
-WORD SIMBOL {printf("Naisli smo na direktivu word"); }
+WORD SIMBOL {printf("Naisli smo na direktivu word\n"); }
 |
-WORD NUMBER {printf("Naisli smo na direktivu word"); }
+WORD NUMBER {printf("Naisli smo na direktivu word\n"); }
 |
-SKIP NUMBER {printf("Naisli smo na direktivu skip"); }
+SKIP NUMBER {printf("Naisli smo na direktivu skip\n"); }
 |
 EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); }
 |
-END {printf("Naisli smo na direktivu end"); }
+END {printf("Naisli smo na direktivu end\n"); }
 ;
 
 labela:

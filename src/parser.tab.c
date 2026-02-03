@@ -1294,7 +1294,7 @@ yyreduce:
 
   case 4:
 #line 39 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na linije \n");}
+    {}
 #line 1299 "parser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1312,37 +1312,37 @@ yyreduce:
 
   case 12:
 #line 59 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu global"); }
+    {printf("Naisli smo na direktivu global\n"); }
 #line 1317 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 61 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu extern"); }
+    {printf("Naisli smo na direktivu extern\n"); }
 #line 1323 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 63 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu sekcije"); novaSekcija();}
+    {printf("Naisli smo na direktivu sekcije\n"); novaSekcija();}
 #line 1329 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 65 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu word"); }
+    {printf("Naisli smo na direktivu word\n"); }
 #line 1335 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 67 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu word"); }
+    {printf("Naisli smo na direktivu word\n"); }
 #line 1341 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 69 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu skip"); }
+    {printf("Naisli smo na direktivu skip\n"); }
 #line 1347 "parser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1354,7 +1354,7 @@ yyreduce:
 
   case 19:
 #line 73 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu end"); }
+    {printf("Naisli smo na direktivu end\n"); }
 #line 1359 "parser.tab.c" /* yacc.c:1646  */
     break;
 
