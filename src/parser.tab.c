@@ -1335,7 +1335,7 @@ yyreduce:
 
   case 18:
 #line 76 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu equ\n"); }
+    {printf("Naisli smo na direktivu equ\n"); dodajSimbolEqu((yyvsp[-2].str),(yyvsp[0].num)); }
 #line 1340 "parser.tab.c" /* yacc.c:1646  */
     break;
 

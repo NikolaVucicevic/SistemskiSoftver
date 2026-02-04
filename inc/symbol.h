@@ -3,6 +3,7 @@
 
 #include "myElf.h"
 #include <string>
+#include "section.h"
 
 
 class Simbol {
@@ -14,6 +15,7 @@ private:
     SymbolBinding bind;
     int ndx;
     std::string name;
+    Sekcija* sectionOwner;
 
 public:
     // konstruktor
@@ -23,7 +25,8 @@ public:
            uint32_t size,
            SymbolType type,
            SymbolBinding bind,
-           int ndx);
+           int ndx,
+           Sekcija* sectionOwner);
     Simbol();
     // getteri
     int getNum() const;
@@ -33,6 +36,7 @@ public:
     SymbolBinding getBind() const;
     int getNdx() const;
     std::string getName() const;
+    Sekcija* getSectionOwner() const;
 
     // setteri
     void setNum(int num);
@@ -42,6 +46,7 @@ public:
     void setType(SymbolType type);
     void setBind(SymbolBinding bind);
     void setNdx(int ndx);
+    void setSectionOwner(Sekcija* section);
 };
 
 #endif

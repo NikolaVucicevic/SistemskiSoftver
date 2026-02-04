@@ -32,7 +32,11 @@ public:
     void addSymbol(Simbol* simbol);
     void addSection(Sekcija* sekcija);
     const std::unordered_map<std::string,Simbol*>& getSimboli() const;
+    Sekcija* getCurrentSection() const;
+    void setCurrentSection(Sekcija* section);
 
+
+    //ispis
     void printTable();
 
     // (opciono) destruktor

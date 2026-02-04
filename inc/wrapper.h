@@ -6,6 +6,8 @@ void novaSekcija_c();
 void dodajSimbol_c(const char* s);
 void dodajSekciju_f(const char* s);
 void ispisiTabelu_fs();
+void dodajSimbolEqu(const char* s,int num);
+void dodajSimbolExt(const char* s);
 
 #ifdef __cplusplus
 }

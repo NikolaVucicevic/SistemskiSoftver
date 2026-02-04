@@ -73,7 +73,7 @@ WORD NUMBER {printf("Naisli smo na direktivu word\n"); }
 |
 SKIP NUMBER {printf("Naisli smo na direktivu skip\n"); }
 |
-EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); }
+EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); dodajSimbolEqu($2,$4); }
 |
 END {printf("Naisli smo na direktivu end\n"); ispisiTabelu_fs();}
 ;

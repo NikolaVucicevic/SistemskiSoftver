@@ -38,6 +38,7 @@ void DataTable::printTable() {
     for (const auto& par : simboli) {
         std::cout << par.first << std::endl;
     }
+    std::cout << "=== Tabela sekcija ===" << std::endl;
 
     for (const auto& par : sekcije) {
         std::cout << par.first << std::endl;
@@ -51,4 +52,13 @@ const std::unordered_map<std::string,Simbol*>& DataTable::getSimboli() const {
 // Opciono: oslobodi memoriju ako SI vlasnik simbola
 DataTable::~DataTable() {
     
+}
+
+Sekcija* DataTable::getCurrentSection() const {
+    return currentSection;
+}
+
+// setter
+void DataTable::setCurrentSection(Sekcija* section) {
+    this->currentSection = section;
 }

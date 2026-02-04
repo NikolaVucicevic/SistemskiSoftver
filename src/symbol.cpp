@@ -7,14 +7,17 @@ Simbol::Simbol(int num,
                uint32_t size,
                SymbolType type,
                SymbolBinding bind,
-               int ndx)
+               int ndx,
+                Sekcija* sectionOwner
+            )
     : num(num),
       name(name),
       value(value),
       size(size),
       type(type),
       bind(bind),
-      ndx(ndx)
+      ndx(ndx),
+      sectionOwner(sectionOwner)
 {
 }
 // Konstruktor
@@ -51,6 +54,10 @@ std::string Simbol::getName() const {
     return name;
 }
 
+Sekcija* Simbol::getSectionOwner() const {
+    return sectionOwner;
+}
+
 // Setteri
 void Simbol::setNum(int num) {
     this->num = num;
@@ -78,4 +85,8 @@ void Simbol::setBind(SymbolBinding bind) {
 
 void Simbol::setNdx(int ndx) {
     this->ndx = ndx;
+}
+
+void Simbol::setSectionOwner(Sekcija* section) {
+    this->sectionOwner = section;
 }
