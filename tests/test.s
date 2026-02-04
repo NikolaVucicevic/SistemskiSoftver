@@ -6,4 +6,5 @@ ret
 .word 54
 .skip 54
 .equ a,5
+ldr r7,q
 .end

@@ -91,7 +91,14 @@ naredba:
     |
     IRET
     |
-    RET;
+    RET
+    |
+    LDR REGISTER COMMA operand;
+
+operand:
+DOLLAR SIMBOL { dodajSimbolNaredba($2);}
+|
+SIMBOL { dodajSimbolNaredba($1); };
 
 
 

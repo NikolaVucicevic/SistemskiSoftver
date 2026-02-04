@@ -62,3 +62,7 @@ Sekcija* DataTable::getCurrentSection() const {
 void DataTable::setCurrentSection(Sekcija* section) {
     this->currentSection = section;
 }
+
+int DataTable::getLocationCounter() const{
+    return locationCounter;
+}

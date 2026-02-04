@@ -48,4 +48,13 @@ void dodajSimbolExt(const char* s){
     DataTable::getInstance().addSymbol(s1);
 }
 
+void dodajSimbolNaredba(const char* s){
+    Simbol* s1= new Simbol();
+    s1->setName(s);
+    s1->setValue(DataTable::getInstance().getLocationCounter());
+    s1->setSectionOwner(DataTable::getInstance().getCurrentSection());
+    //dodaj da je u apsolutnoj sekciji
+    DataTable::getInstance().addSymbol(s1);
+}
+
 

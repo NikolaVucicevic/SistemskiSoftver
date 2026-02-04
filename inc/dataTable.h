@@ -34,6 +34,8 @@ public:
     const std::unordered_map<std::string,Simbol*>& getSimboli() const;
     Sekcija* getCurrentSection() const;
     void setCurrentSection(Sekcija* section);
+    int getLocationCounter() const;
+    
 
 
     //ispis
