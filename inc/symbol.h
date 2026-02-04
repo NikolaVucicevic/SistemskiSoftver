@@ -24,7 +24,7 @@ public:
            SymbolType type,
            SymbolBinding bind,
            int ndx);
-
+    Simbol();
     // getteri
     int getNum() const;
     uint32_t getValue() const;
@@ -35,6 +35,7 @@ public:
     std::string getName() const;
 
     // setteri
+    void setNum(int num);
     void setValue(uint32_t value);
     void setSize(uint32_t size);
     void setType(SymbolType type);

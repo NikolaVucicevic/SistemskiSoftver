@@ -17,6 +17,10 @@ Simbol::Simbol(int num,
       ndx(ndx)
 {
 }
+// Konstruktor
+Simbol::Simbol()
+{
+}
 
 // Getteri
 int Simbol::getNum() const {
@@ -48,6 +52,10 @@ std::string Simbol::getName() const {
 }
 
 // Setteri
+void Simbol::setNum(int num) {
+    this->num = num;
+}
+
 void Simbol::setValue(uint32_t value) {
     this->value = value;
 }

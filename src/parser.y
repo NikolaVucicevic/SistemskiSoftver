@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include <firstPass.h>
+#include <wrapper.h>
 
 int yylex();
 int yyerror(const char *s);
@@ -65,7 +65,7 @@ GLOBAL simboli {printf("Naisli smo na direktivu global\n"); }
 |
 EXTERN simboli {printf("Naisli smo na direktivu extern\n"); }
 |
-SECTION simboli {printf("Naisli smo na direktivu sekcije\n"); novaSekcija();}
+SECTION simboli {printf("Naisli smo na direktivu sekcije\n"); novaSekcija_c();}
 |
 WORD simboli {printf("Naisli smo na direktivu word\n"); }
 |
@@ -80,8 +80,8 @@ END {printf("Naisli smo na direktivu end\n"); }
 
 
 simboli:
-    SIMBOL
-  | simboli COMMA SIMBOL {}
+    SIMBOL { dodajSimbol_c($1) ;}
+  | simboli COMMA SIMBOL { dodajSimbol_c($3); }
 ;
 
 

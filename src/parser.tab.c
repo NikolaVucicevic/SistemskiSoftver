@@ -66,7 +66,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <firstPass.h>
+#include <wrapper.h>
 
 int yylex();
 int yyerror(const char *s);
@@ -1313,7 +1313,7 @@ yyreduce:
 
   case 14:
 #line 68 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu sekcije\n"); novaSekcija();}
+    {printf("Naisli smo na direktivu sekcije\n"); novaSekcija_c();}
 #line 1318 "parser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1347,14 +1347,20 @@ yyreduce:
 #line 1348 "parser.tab.c" /* yacc.c:1646  */
     break;
 
-  case 21:
-#line 84 "parser.y" /* yacc.c:1646  */
-    {}
+  case 20:
+#line 83 "parser.y" /* yacc.c:1646  */
+    { dodajSimbol_c((yyvsp[0].str)) ;}
 #line 1354 "parser.tab.c" /* yacc.c:1646  */
     break;
 
+  case 21:
+#line 84 "parser.y" /* yacc.c:1646  */
+    { dodajSimbol_c((yyvsp[0].str)); }
+#line 1360 "parser.tab.c" /* yacc.c:1646  */
+    break;
 
-#line 1358 "parser.tab.c" /* yacc.c:1646  */
+
+#line 1364 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
