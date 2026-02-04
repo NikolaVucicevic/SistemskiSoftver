@@ -65,7 +65,7 @@ GLOBAL simboli {printf("Naisli smo na direktivu global\n"); }
 |
 EXTERN simboli {printf("Naisli smo na direktivu extern\n"); }
 |
-SECTION simboli {printf("Naisli smo na direktivu sekcije\n"); novaSekcija_c();}
+SECTION SIMBOL {printf("Naisli smo na direktivu sekcije\n"); novaSekcija_c();}
 |
 WORD simboli {printf("Naisli smo na direktivu word\n"); }
 |
@@ -73,9 +73,9 @@ WORD NUMBER {printf("Naisli smo na direktivu word\n"); }
 |
 SKIP NUMBER {printf("Naisli smo na direktivu skip\n"); }
 |
-EQU simboli COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); }
+EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); }
 |
-END {printf("Naisli smo na direktivu end\n"); }
+END {printf("Naisli smo na direktivu end\n"); ispisiTabelu();}
 ;
 
 

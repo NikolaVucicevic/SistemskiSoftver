@@ -12,16 +12,25 @@ DataTable& DataTable::getInstance() {
 
 void DataTable::addSymbol(Simbol* simbol) {
     if (!simbol) return;
-    simboli.push_back(simbol);
+    if(simboli[simbol->getName()]!=0){
+       simboli[simbol->getName()] =simbol;
+    }
      std::cout << "[DataTable] Dodajem simbol ";
 }
 
-const std::vector<Simbol*>& DataTable::getSimboli() const {
+void DataTable::printTable() {
+    std::cout << "=== Tabela simbola ===" << std::endl;
+
+    for (const auto& par : simboli) {
+        std::cout << par.first << std::endl;
+    }
+}
+
+const std::unordered_map<std::string,Simbol*>& DataTable::getSimboli() const {
     return simboli;
 }
 
 // Opciono: oslobodi memoriju ako SI vlasnik simbola
 DataTable::~DataTable() {
-    for (auto s : simboli)
-        delete s;
+    
 }

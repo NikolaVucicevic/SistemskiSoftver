@@ -56,6 +56,10 @@ void Simbol::setNum(int num) {
     this->num = num;
 }
 
+void Simbol::setName(const std::string& name) {
+    this->name = name;
+}
+
 void Simbol::setValue(uint32_t value) {
     this->value = value;
 }

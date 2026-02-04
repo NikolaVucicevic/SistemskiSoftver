@@ -427,7 +427,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   40
+#define YYLAST   39
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  52
@@ -524,10 +524,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -39
+#define YYPACT_NINF -37
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-39)))
+  (!!((Yystate) == (-37)))
 
 #define YYTABLE_NINF -3
 
@@ -538,10 +538,10 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -39,     2,    11,   -39,   -39,   -11,   -38,   -38,   -38,   -13,
-       5,   -38,   -39,   -39,   -39,   -39,    16,   -39,    14,   -39,
-     -39,   -39,    19,    19,    19,   -39,    19,   -39,    20,   -39,
-     -39,   -27,   -12,   -39,   -39
+     -37,     1,    14,   -37,   -37,   -12,   -36,   -36,   -35,   -13,
+       4,   -33,   -37,   -37,   -37,   -37,    15,   -37,    13,   -37,
+     -37,   -37,    18,    18,   -37,   -37,    18,   -37,    19,   -37,
+     -37,   -28,    11,   -37,   -37
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -558,7 +558,7 @@ static const yytype_uint8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -39,   -39,   -39,   -39,   -39,   -39,   -39,   -39,     8,   -39
+     -37,   -37,   -37,   -37,   -37,   -37,   -37,   -37,     3,   -37
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -572,20 +572,18 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      25,    34,     3,     6,     7,     8,     9,    10,    11,    12,
-      13,    -2,    14,    21,    15,    23,    24,    26,    27,    28,
-      29,    30,    31,    32,    33,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    21,    33,
-      16
+      25,     3,     6,     7,     8,     9,    10,    11,    12,    13,
+      23,    14,    26,    15,    -2,    21,    24,    27,    28,    29,
+      30,    31,    32,    33,    34,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    21,    16
 };
 
 static const yytype_int8 yycheck[] =
 {
-      13,    13,     0,    14,    15,    16,    17,    18,    19,    20,
-      21,     0,    23,    51,    25,     7,     8,     9,    13,    11,
-       4,     7,     3,     3,    51,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    51,    51,
-      51
+      13,     0,    14,    15,    16,    17,    18,    19,    20,    21,
+       7,    23,     9,    25,     0,    51,    51,    13,    51,     4,
+       7,     3,     3,    51,    13,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    51,    51
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -594,7 +592,7 @@ static const yytype_uint8 yystos[] =
 {
        0,    53,    54,     0,    55,    56,    14,    15,    16,    17,
       18,    19,    20,    21,    23,    25,    51,    57,    58,    59,
-      61,    51,    60,    60,    60,    13,    60,    13,    60,     4,
+      61,    51,    60,    60,    51,    13,    60,    13,    51,     4,
        7,     3,     3,    51,    13
 };
 
@@ -1290,77 +1288,77 @@ yyreduce:
         case 2:
 #line 34 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na liniju \n");}
-#line 1294 "parser.tab.c" /* yacc.c:1646  */
+#line 1292 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 39 "parser.y" /* yacc.c:1646  */
     {}
-#line 1300 "parser.tab.c" /* yacc.c:1646  */
+#line 1298 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
 #line 64 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu global\n"); }
-#line 1306 "parser.tab.c" /* yacc.c:1646  */
+#line 1304 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 66 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu extern\n"); }
-#line 1312 "parser.tab.c" /* yacc.c:1646  */
+#line 1310 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 68 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu sekcije\n"); novaSekcija_c();}
-#line 1318 "parser.tab.c" /* yacc.c:1646  */
+#line 1316 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 70 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu word\n"); }
-#line 1324 "parser.tab.c" /* yacc.c:1646  */
+#line 1322 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 72 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu word\n"); }
-#line 1330 "parser.tab.c" /* yacc.c:1646  */
+#line 1328 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 74 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu skip\n"); }
-#line 1336 "parser.tab.c" /* yacc.c:1646  */
+#line 1334 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 76 "parser.y" /* yacc.c:1646  */
     {printf("Naisli smo na direktivu equ\n"); }
-#line 1342 "parser.tab.c" /* yacc.c:1646  */
+#line 1340 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 78 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu end\n"); }
-#line 1348 "parser.tab.c" /* yacc.c:1646  */
+    {printf("Naisli smo na direktivu end\n"); ispisiTabelu();}
+#line 1346 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 83 "parser.y" /* yacc.c:1646  */
     { dodajSimbol_c((yyvsp[0].str)) ;}
-#line 1354 "parser.tab.c" /* yacc.c:1646  */
+#line 1352 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
 #line 84 "parser.y" /* yacc.c:1646  */
     { dodajSimbol_c((yyvsp[0].str)); }
-#line 1360 "parser.tab.c" /* yacc.c:1646  */
+#line 1358 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1364 "parser.tab.c" /* yacc.c:1646  */
+#line 1362 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

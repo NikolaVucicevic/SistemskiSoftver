@@ -4,6 +4,7 @@ extern "C" {
 
 void novaSekcija_c();
 void dodajSimbol_c(const char* s);
+void ispisiTabelu();
 
 #ifdef __cplusplus
 }

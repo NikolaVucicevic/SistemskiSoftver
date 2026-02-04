@@ -36,6 +36,7 @@ public:
 
     // setteri
     void setNum(int num);
+    void setName(const std::string& name);
     void setValue(uint32_t value);
     void setSize(uint32_t size);
     void setType(SymbolType type);

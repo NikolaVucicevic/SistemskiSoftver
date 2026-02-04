@@ -5,10 +5,11 @@
 #include "symbol.h"
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 class DataTable {
 private:
-    std::vector<Simbol*> simboli;
+    std::unordered_map<std::string,Simbol*> simboli;
 
     // Privatni konstruktor
     DataTable();
@@ -23,7 +24,9 @@ public:
 
     // Javne metode
     void addSymbol(Simbol* simbol);
-    const std::vector<Simbol*>& getSimboli() const;
+    const std::unordered_map<std::string,Simbol*>& getSimboli() const;
+
+    void printTable();
 
     // (opciono) destruktor
     ~DataTable();
