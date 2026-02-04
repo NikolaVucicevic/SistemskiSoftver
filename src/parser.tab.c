@@ -1311,7 +1311,7 @@ yyreduce:
 
   case 14:
 #line 68 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu sekcije\n"); novaSekcija_c();}
+    {printf("Naisli smo na direktivu sekcije\n"); dodajSekciju_f((yyvsp[0].str));}
 #line 1316 "parser.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1341,7 +1341,7 @@ yyreduce:
 
   case 19:
 #line 78 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu end\n"); ispisiTabelu();}
+    {printf("Naisli smo na direktivu end\n"); ispisiTabelu_fs();}
 #line 1346 "parser.tab.c" /* yacc.c:1646  */
     break;
 

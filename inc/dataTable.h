@@ -15,6 +15,7 @@ private:
     Sekcija* currentSection;
 
     bool prviProlaz;
+    int locationCounter;
     // Privatni konstruktor
     DataTable();
 
@@ -29,6 +30,7 @@ public:
 
     // Javne metode
     void addSymbol(Simbol* simbol);
+    void addSection(Sekcija* sekcija);
     const std::unordered_map<std::string,Simbol*>& getSimboli() const;
 
     void printTable();

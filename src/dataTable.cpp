@@ -5,6 +5,7 @@
 DataTable::DataTable() {
     this->prviProlaz=true;
     this->currentSection=nullptr;
+    this->locationCounter=0;
 }
 
 // Singleton instanca (thread-safe od C++11)
@@ -21,10 +22,24 @@ void DataTable::addSymbol(Simbol* simbol) {
      std::cout << "[DataTable] Dodajem simbol ";
 }
 
+void DataTable::addSection(Sekcija* sekcija) {
+    if (!sekcija) return;
+    if(sekcije[sekcija->getName()]!=0){
+       sekcije[sekcija->getName()] = sekcija;
+    }
+    this->currentSection = sekcija;
+    this->locationCounter=0;
+     std::cout << "[DataTable] Dodajemo sekciju ";
+}
+
 void DataTable::printTable() {
     std::cout << "=== Tabela simbola ===" << std::endl;
 
     for (const auto& par : simboli) {
+        std::cout << par.first << std::endl;
+    }
+
+    for (const auto& par : sekcije) {
         std::cout << par.first << std::endl;
     }
 }
