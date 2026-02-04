@@ -3,6 +3,7 @@
 
 #include "myElf.h"
 #include "symbol.h"
+#include "section.h"
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -10,9 +11,13 @@
 class DataTable {
 private:
     std::unordered_map<std::string,Simbol*> simboli;
+    std::unordered_map<std::string,Sekcija*> sekcije;
+    Sekcija* currentSection;
 
+    bool prviProlaz;
     // Privatni konstruktor
     DataTable();
+
 
 public:
     //Zabranjeno kopiranje i dodela

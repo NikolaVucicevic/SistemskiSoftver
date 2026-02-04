@@ -2,7 +2,10 @@
 #include <iostream>
 
 // Privatni konstruktor
-DataTable::DataTable() {}
+DataTable::DataTable() {
+    this->prviProlaz=true;
+    this->currentSection=nullptr;
+}
 
 // Singleton instanca (thread-safe od C++11)
 DataTable& DataTable::getInstance() {

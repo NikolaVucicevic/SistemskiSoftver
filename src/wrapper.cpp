@@ -13,3 +13,7 @@ void dodajSimbol_c(const char* s) {
 void ispisiTabelu(){
     DataTable::getInstance().printTable();
 }
+
+void dodajSekciju_f(const char* s){
+    
+}
