@@ -57,7 +57,7 @@ void dodajSimbolNaredba(const char* s){
     DataTable::getInstance().addSymbol(s1);
 }
 
-void skipDirektiva_f(int num){
+void addToCounter_f(int num){
     DataTable::getInstance().addLocationCounter(num);
 }
 

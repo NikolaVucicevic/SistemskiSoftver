@@ -102,12 +102,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "parser.y" /* yacc.c:1909  */
+#line 14 "parser.y" /* yacc.c:1909  */
 
     int num;
     char* str;
+    char** strlist;   /* dinamički niz char* */
 
-#line 111 "parser.tab.h" /* yacc.c:1909  */
+#line 112 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

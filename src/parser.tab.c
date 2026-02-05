@@ -66,12 +66,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <wrapper.h>
+#include <string.h>
+#include "wrapper.h"
 
 int yylex();
 int yyerror(const char *s);
 
-#line 75 "parser.tab.c" /* yacc.c:339  */
+/* globalno: dužina poslednje napravljene liste SIMBOL-a */
+static int simboli_len = 0;
+
+#line 79 "parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -163,12 +167,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "parser.y" /* yacc.c:355  */
+#line 14 "parser.y" /* yacc.c:355  */
 
     int num;
     char* str;
+    char** strlist;   /* dinamički niz char* */
 
-#line 172 "parser.tab.c" /* yacc.c:355  */
+#line 177 "parser.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -185,7 +190,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 189 "parser.tab.c" /* yacc.c:358  */
+#line 194 "parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -487,9 +492,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    37,    39,    43,    46,    48,    52,    56,
-      58,    59,    64,    66,    68,    70,    72,    74,    76,    78,
-      83,    84,    90,    92,    94,    96,    99,   101
+       0,    37,    37,    40,    42,    46,    49,    51,    55,    58,
+      60,    61,    65,    72,    82,    87,    99,   104,   109,   114,
+     121,   132,   146,   148,   150,   152,   156,   158
 };
 #endif
 
@@ -1293,91 +1298,148 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 34 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na liniju \n");}
-#line 1299 "parser.tab.c" /* yacc.c:1646  */
+#line 37 "parser.y" /* yacc.c:1646  */
+    { printf("Naisli smo na liniju \n"); }
+#line 1304 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 39 "parser.y" /* yacc.c:1646  */
-    {}
-#line 1305 "parser.tab.c" /* yacc.c:1646  */
+#line 42 "parser.y" /* yacc.c:1646  */
+    { }
+#line 1310 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 64 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu global\n"); }
-#line 1311 "parser.tab.c" /* yacc.c:1646  */
+#line 65 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu global\n");
+        /* ako želiš, obradi simbole isto kao extern/word */
+        for (int i = 0; i < simboli_len; i++) free((yyvsp[0].strlist)[i]);
+        free((yyvsp[0].strlist));
+    }
+#line 1321 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 66 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu extern\n"); }
-#line 1317 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 14:
-#line 68 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu sekcije\n"); dodajSekciju_f((yyvsp[0].str));}
-#line 1323 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 15:
-#line 70 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu word\n"); }
-#line 1329 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 16:
 #line 72 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu word\n"); }
+    {
+        printf("Naisli smo na direktivu extern\n");
+
+        for (int i = 0; i < simboli_len; i++) {
+            dodajSimbol_c((yyvsp[0].strlist)[i]);
+            free((yyvsp[0].strlist)[i]);
+        }
+        free((yyvsp[0].strlist));
+    }
 #line 1335 "parser.tab.c" /* yacc.c:1646  */
     break;
 
+  case 14:
+#line 82 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu sekcije\n");
+        dodajSekciju_f((yyvsp[0].str));
+    }
+#line 1344 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 87 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu word simboli\n");
+
+        addToCounter_f(simboli_len * 2);
+
+        for (int i = 0; i < simboli_len; i++) {
+            dodajSimbol_c((yyvsp[0].strlist)[i]);
+            free((yyvsp[0].strlist)[i]);
+        }
+        free((yyvsp[0].strlist));
+    }
+#line 1360 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 99 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu word\n");
+        addToCounter_f((yyvsp[0].num));
+    }
+#line 1369 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
   case 17:
-#line 74 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu skip\n");skipDirektiva_f((yyvsp[0].num)); }
-#line 1341 "parser.tab.c" /* yacc.c:1646  */
+#line 104 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu skip\n");
+        addToCounter_f((yyvsp[0].num));
+    }
+#line 1378 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 76 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu equ\n"); dodajSimbolEqu((yyvsp[-2].str),(yyvsp[0].num)); }
-#line 1347 "parser.tab.c" /* yacc.c:1646  */
+#line 109 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu equ\n");
+        dodajSimbolEqu((yyvsp[-2].str), (yyvsp[0].num));
+    }
+#line 1387 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 78 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu end\n"); ispisiTabelu_fs();}
-#line 1353 "parser.tab.c" /* yacc.c:1646  */
+#line 114 "parser.y" /* yacc.c:1646  */
+    {
+        printf("Naisli smo na direktivu end\n");
+        ispisiTabelu_fs();
+    }
+#line 1396 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 83 "parser.y" /* yacc.c:1646  */
-    { dodajSimbol_c((yyvsp[0].str)) ;}
-#line 1359 "parser.tab.c" /* yacc.c:1646  */
+#line 121 "parser.y" /* yacc.c:1646  */
+    {
+        simboli_len = 1;
+        (yyval.strlist) = (char**)malloc(sizeof(char*));
+        if (!(yyval.strlist)) { perror("malloc"); exit(1); }
+
+        (yyval.strlist)[0] = strdup((yyvsp[0].str));
+        if (!(yyval.strlist)[0]) { perror("strdup"); exit(1); }
+
+        /* ako flex već radi strdup, može free($1); (po potrebi) */
+    }
+#line 1411 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 84 "parser.y" /* yacc.c:1646  */
-    { dodajSimbol_c((yyvsp[0].str)); }
-#line 1365 "parser.tab.c" /* yacc.c:1646  */
+#line 132 "parser.y" /* yacc.c:1646  */
+    {
+        /* $1 je već niz, samo ga proširi */
+        simboli_len++;
+        (yyval.strlist) = (char**)realloc((yyvsp[-2].strlist), (size_t)simboli_len * sizeof(char*));
+        if (!(yyval.strlist)) { perror("realloc"); exit(1); }
+
+        (yyval.strlist)[simboli_len - 1] = strdup((yyvsp[0].str));
+        if (!(yyval.strlist)[simboli_len - 1]) { perror("strdup"); exit(1); }
+
+        /* ako flex već radi strdup, može free($3); (po potrebi) */
+    }
+#line 1427 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 99 "parser.y" /* yacc.c:1646  */
-    { dodajSimbolNaredba((yyvsp[0].str));}
-#line 1371 "parser.tab.c" /* yacc.c:1646  */
+#line 156 "parser.y" /* yacc.c:1646  */
+    { dodajSimbolNaredba((yyvsp[0].str)); }
+#line 1433 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 101 "parser.y" /* yacc.c:1646  */
+#line 158 "parser.y" /* yacc.c:1646  */
     { dodajSimbolNaredba((yyvsp[0].str)); }
-#line 1377 "parser.tab.c" /* yacc.c:1646  */
+#line 1439 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1381 "parser.tab.c" /* yacc.c:1646  */
+#line 1443 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1605,11 +1667,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 105 "parser.y" /* yacc.c:1906  */
-
-
-
-
+#line 161 "parser.y" /* yacc.c:1906  */
 
 
 int yyerror(const char *s){
