@@ -1336,7 +1336,7 @@ yyreduce:
 
   case 17:
 #line 74 "parser.y" /* yacc.c:1646  */
-    {printf("Naisli smo na direktivu skip\n"); }
+    {printf("Naisli smo na direktivu skip\n");skipDirektiva_f((yyvsp[0].num)); }
 #line 1341 "parser.tab.c" /* yacc.c:1646  */
     break;
 

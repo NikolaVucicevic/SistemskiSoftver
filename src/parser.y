@@ -71,7 +71,7 @@ WORD simboli {printf("Naisli smo na direktivu word\n"); }
 |
 WORD NUMBER {printf("Naisli smo na direktivu word\n"); }
 |
-SKIP NUMBER {printf("Naisli smo na direktivu skip\n"); }
+SKIP NUMBER {printf("Naisli smo na direktivu skip\n");skipDirektiva_f($2); }
 |
 EQU SIMBOL COMMA NUMBER {printf("Naisli smo na direktivu equ\n"); dodajSimbolEqu($2,$4); }
 |

@@ -35,7 +35,8 @@ public:
     Sekcija* getCurrentSection() const;
     void setCurrentSection(Sekcija* section);
     int getLocationCounter() const;
-    
+    void addLocationCounter(int num);
+
 
 
     //ispis

@@ -9,6 +9,7 @@ void ispisiTabelu_fs();
 void dodajSimbolEqu(const char* s,int num);
 void dodajSimbolExt(const char* s);
 void dodajSimbolNaredba(const char* s);
+void skipDirektiva_f(int num);
 
 #ifdef __cplusplus
 }

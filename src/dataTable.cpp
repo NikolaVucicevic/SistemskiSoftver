@@ -16,7 +16,7 @@ DataTable& DataTable::getInstance() {
 
 void DataTable::addSymbol(Simbol* simbol) {
     if (!simbol) return;
-    if(simboli[simbol->getName()]!=0){
+    if(simboli[simbol->getName()]==0){
        simboli[simbol->getName()] =simbol;
     }
      std::cout << "[DataTable] Dodajem simbol ";
@@ -24,7 +24,7 @@ void DataTable::addSymbol(Simbol* simbol) {
 
 void DataTable::addSection(Sekcija* sekcija) {
     if (!sekcija) return;
-    if(sekcije[sekcija->getName()]!=0){
+    if(sekcije[sekcija->getName()]==0){
        sekcije[sekcija->getName()] = sekcija;
     }
     this->currentSection = sekcija;
@@ -33,17 +33,48 @@ void DataTable::addSection(Sekcija* sekcija) {
 }
 
 void DataTable::printTable() {
-    std::cout << "=== Tabela simbola ===" << std::endl;
+    std::cout << "================= TABELA SIMBOLA =================" << std::endl;
+    std::cout << "Num\tName\t\tValue\tSize\tType\tBind\tNdx\tSection" << std::endl;
+    std::cout << "--------------------------------------------------" << std::endl;
 
     for (const auto& par : simboli) {
-        std::cout << par.first << std::endl;
+        Simbol* s = par.second;
+        if (!s) continue;
+
+        std::cout
+            << s->getNum() << "\t"
+            << s->getName() << "\t\t"
+            << std::hex << "0x" << s->getValue() << std::dec << "\t"
+            << s->getSize() << "\t"
+            << static_cast<int>(s->getType()) << "\t"
+            << static_cast<int>(s->getBind()) << "\t"
+            << s->getNdx() << "\t";
+
+        if (s->getSectionOwner())
+            std::cout << s->getSectionOwner()->getName();
+        else
+            std::cout << "UND";
+
+        std::cout << std::endl;
     }
-    std::cout << "=== Tabela sekcija ===" << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "================= TABELA SEKCIJA =================" << std::endl;
+    std::cout << "Name\tBase\tSize" << std::endl;
+    std::cout << "--------------------------------------------------" << std::endl;
 
     for (const auto& par : sekcije) {
-        std::cout << par.first << std::endl;
+        Sekcija* sec = par.second;
+        if (!sec) continue;
+
+        std::cout
+            << sec->getName() << "\t"
+            << std::hex << "0x" << sec->getBase() << std::dec << "\t"
+            << sec->getSize()
+            << std::endl;
     }
 }
+
 
 const std::unordered_map<std::string,Simbol*>& DataTable::getSimboli() const {
     return simboli;
@@ -65,4 +96,8 @@ void DataTable::setCurrentSection(Sekcija* section) {
 
 int DataTable::getLocationCounter() const{
     return locationCounter;
+}
+
+void DataTable::addLocationCounter(int num){
+    locationCounter+=num;
 }
