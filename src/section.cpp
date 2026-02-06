@@ -5,7 +5,7 @@ Sekcija::Sekcija()
     : name(""), base(0), size(0) {}
 
 // Konstruktor sa parametrima
-Sekcija::Sekcija(const std::string& name, uint64_t base, uint64_t size)
+Sekcija::Sekcija(const std::string& name, int base, int size)
     : name(name), base(base), size(size) {}
 
 // Getteri
@@ -13,11 +13,11 @@ const std::string& Sekcija::getName() const {
     return name;
 }
 
-uint64_t Sekcija::getBase() const {
+int Sekcija::getBase() const {
     return base;
 }
 
-uint64_t Sekcija::getSize() const {
+int Sekcija::getSize() const {
     return size;
 }
 
@@ -26,10 +26,10 @@ void Sekcija::setName(const std::string& name) {
     this->name = name;
 }
 
-void Sekcija::setBase(uint64_t base) {
+void Sekcija::setBase(int base) {
     this->base = base;
 }
 
-void Sekcija::setSize(uint64_t size) {
+void Sekcija::setSize(int size) {
     this->size = size;
 }

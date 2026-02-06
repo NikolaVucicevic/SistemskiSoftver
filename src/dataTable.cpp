@@ -28,7 +28,6 @@ void DataTable::addSection(Sekcija* sekcija) {
        sekcije[sekcija->getName()] = sekcija;
     }
     this->currentSection = sekcija;
-    this->locationCounter=0;
      std::cout << "[DataTable] Dodajemo sekciju ";
 }
 

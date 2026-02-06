@@ -8,23 +8,23 @@
 class Sekcija {
 private:
     std::string name;
-    uint64_t base;
-    uint64_t size;
+    int base;
+    int size;
 
 public:
     // Konstruktori
     Sekcija();
-    Sekcija(const std::string& name, uint64_t base, uint64_t size);
+    Sekcija(const std::string& name, int base, int size);
 
     // Getteri
     const std::string& getName() const;
-    uint64_t getBase() const;
-    uint64_t getSize() const;
+    int getBase() const;
+    int getSize() const;
 
     // Setteri
     void setName(const std::string& name);
-    void setBase(uint64_t base);
-    void setSize(uint64_t size);
+    void setBase(int base);
+    void setSize(int size);
 };
 
 #endif

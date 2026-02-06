@@ -52,7 +52,7 @@ labels:
 ;
 
 labela:
-    SIMBOL DVOTACKA
+    SIMBOL DVOTACKA {  dodajSimbolLabela($1); }
 ;
 
 stmt_opt:
@@ -73,7 +73,7 @@ direktiva:
         printf("Naisli smo na direktivu extern\n");
 
         for (int i = 0; i < simboli_len; i++) {
-            dodajSimbol_c($2[i]);
+            dodajSimbolUnd($2[i]);
             free($2[i]);
         }
         free($2);
@@ -90,7 +90,7 @@ direktiva:
         addToCounter_f(simboli_len * 2);
 
         for (int i = 0; i < simboli_len; i++) {
-            dodajSimbol_c($2[i]);
+            dodajSimbolUnd($2[i]);
             free($2[i]);
         }
         free($2);
@@ -113,6 +113,7 @@ direktiva:
   |
     END {
         printf("Naisli smo na direktivu end\n");
+        endUpdates();
         ispisiTabelu_fs();
     }
 ;
@@ -153,9 +154,9 @@ naredba:
 ;
 
 operand:
-    DOLLAR SIMBOL { dodajSimbolNaredba($2); }
+    DOLLAR SIMBOL { dodajSimbolUnd($2); }
   |
-    SIMBOL { dodajSimbolNaredba($1); }
+    SIMBOL { dodajSimbolUnd($1); }
 ;
 
 %%
