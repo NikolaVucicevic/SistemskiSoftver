@@ -16,10 +16,16 @@ DataTable& DataTable::getInstance() {
 
 void DataTable::addSymbol(Simbol* simbol) {
     if (!simbol) return;
-    if(simboli[simbol->getName()]==0){
-       simboli[simbol->getName()] =simbol;
+    Simbol* stari = simboli[simbol->getName()];
+    if(stari==0){
+       simboli[simbol->getName()] = simbol;
+    }else{
+        if(!stari->getSectionOwner() && stari->getValue()==-1){
+            simboli[simbol->getName()] = simbol;
+            std::cout << "neknadno smo definisali simbol" << simbol->getName()<<"\n";
+
+        }
     }
-     std::cout << "[DataTable] Dodajem simbol ";
 }
 
 void DataTable::addSection(Sekcija* sekcija) {
@@ -28,12 +34,11 @@ void DataTable::addSection(Sekcija* sekcija) {
        sekcije[sekcija->getName()] = sekcija;
     }
     this->currentSection = sekcija;
-     std::cout << "[DataTable] Dodajemo sekciju ";
 }
 
 void DataTable::printTable() {
     std::cout << "================= TABELA SIMBOLA =================" << std::endl;
-    std::cout << "Num\tName\t\tValue\tSize\tType\tBind\tNdx\tSection" << std::endl;
+    std::cout << "Num\tName\t\tValue\tSize\tBind\tNdx\tSection\tExterni" << std::endl;
     std::cout << "--------------------------------------------------" << std::endl;
 
     for (const auto& par : simboli) {
@@ -45,14 +50,17 @@ void DataTable::printTable() {
             << s->getName() << "\t\t"
             << std::hex << "0x" << s->getValue() << std::dec << "\t"
             << s->getSize() << "\t"
-            << static_cast<int>(s->getType()) << "\t"
             << static_cast<int>(s->getBind()) << "\t"
             << s->getNdx() << "\t";
 
         if (s->getSectionOwner())
-            std::cout << s->getSectionOwner()->getName();
+            std::cout << s->getSectionOwner()->getName()<< "\t";
         else
-            std::cout << "UND";
+            std::cout << "UND"<< "\t";
+        if (s->isExtern())
+            std::cout << "Eksterni";
+        else
+            std::cout << "Nije externi";
 
         std::cout << std::endl;
     }

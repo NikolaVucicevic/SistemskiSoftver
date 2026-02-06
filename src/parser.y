@@ -34,7 +34,7 @@ static int simboli_len = 0;
 %%
 
 input:
-    lines { printf("Naisli smo na liniju \n"); }
+    lines {  }
 ;
 
 lines:
@@ -63,29 +63,24 @@ stmt_opt:
 
 direktiva:
     GLOBAL simboli {
-        printf("Naisli smo na direktivu global\n");
-        /* ako želiš, obradi simbole isto kao extern/word */
         for (int i = 0; i < simboli_len; i++) free($2[i]);
         free($2);
     }
   |
     EXTERN simboli {
-        printf("Naisli smo na direktivu extern\n");
 
         for (int i = 0; i < simboli_len; i++) {
-            dodajSimbolUnd($2[i]);
+            dodajSimbolExt($2[i]);
             free($2[i]);
         }
         free($2);
     }
   |
     SECTION SIMBOL {
-        printf("Naisli smo na direktivu sekcije\n");
         dodajSekciju_f($2);
     }
   |
     WORD simboli {
-        printf("Naisli smo na direktivu word simboli\n");
 
         addToCounter_f(simboli_len * 2);
 
@@ -97,22 +92,18 @@ direktiva:
     }
   |
     WORD NUMBER {
-        printf("Naisli smo na direktivu word\n");
         addToCounter_f($2);
     }
   |
     SKIP NUMBER {
-        printf("Naisli smo na direktivu skip\n");
         addToCounter_f($2);
     }
   |
     EQU SIMBOL COMMA NUMBER {
-        printf("Naisli smo na direktivu equ\n");
         dodajSimbolEqu($2, $4);
     }
   |
     END {
-        printf("Naisli smo na direktivu end\n");
         endUpdates();
         ispisiTabelu_fs();
     }
@@ -127,11 +118,9 @@ simboli:
         $$[0] = strdup($1);
         if (!$$[0]) { perror("strdup"); exit(1); }
 
-        /* ako flex već radi strdup, može free($1); (po potrebi) */
     }
   |
     simboli COMMA SIMBOL {
-        /* $1 je već niz, samo ga proširi */
         simboli_len++;
         $$ = (char**)realloc($1, (size_t)simboli_len * sizeof(char*));
         if (!$$) { perror("realloc"); exit(1); }
@@ -139,7 +128,6 @@ simboli:
         $$[simboli_len - 1] = strdup($3);
         if (!$$[simboli_len - 1]) { perror("strdup"); exit(1); }
 
-        /* ako flex već radi strdup, može free($3); (po potrebi) */
     }
 ;
 

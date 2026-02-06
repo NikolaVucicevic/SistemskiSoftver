@@ -5,24 +5,27 @@ Simbol::Simbol(int num,
                const std::string& name,
                uint32_t value,
                uint32_t size,
-               SymbolType type,
                SymbolBinding bind,
                int ndx,
-                Sekcija* sectionOwner
+                Sekcija* sectionOwner,
+                bool externi
             )
     : num(num),
       name(name),
       value(value),
       size(size),
-      type(type),
       bind(bind),
       ndx(ndx),
-      sectionOwner(sectionOwner)
+      sectionOwner(sectionOwner),
+      externi(externi)
 {
 }
 // Konstruktor
 Simbol::Simbol()
 {
+    this->value=-1;
+    this->sectionOwner = nullptr;
+    this->externi = false;
 }
 
 // Getteri
@@ -36,10 +39,6 @@ uint32_t Simbol::getValue() const {
 
 uint32_t Simbol::getSize() const {
     return size;
-}
-
-SymbolType Simbol::getType() const {
-    return type;
 }
 
 SymbolBinding Simbol::getBind() const {
@@ -56,6 +55,10 @@ std::string Simbol::getName() const {
 
 Sekcija* Simbol::getSectionOwner() const {
     return sectionOwner;
+}
+
+bool Simbol::isExtern() const{
+    return externi;
 }
 
 // Setteri
@@ -75,10 +78,6 @@ void Simbol::setSize(uint32_t size) {
     this->size = size;
 }
 
-void Simbol::setType(SymbolType type) {
-    this->type = type;
-}
-
 void Simbol::setBind(SymbolBinding bind) {
     this->bind = bind;
 }
@@ -89,4 +88,8 @@ void Simbol::setNdx(int ndx) {
 
 void Simbol::setSectionOwner(Sekcija* section) {
     this->sectionOwner = section;
+}
+
+void Simbol::setExtern(bool externi) {
+    this->externi = externi;
 }

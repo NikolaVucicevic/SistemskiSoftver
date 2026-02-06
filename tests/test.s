@@ -9,6 +9,7 @@ lala:
 .skip 54
 .section data
 .word c,d
+c:
 .equ a,5
 ldr r7,q
 .end

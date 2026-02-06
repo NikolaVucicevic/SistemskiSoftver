@@ -59,6 +59,8 @@ void dodajSimbolEqu(const char* s,int num){
 void dodajSimbolExt(const char* s){
     Simbol* s1= new Simbol();
     s1->setName(s);
+    s1->setValue(0);
+    s1->setExtern(true);
     DataTable::getInstance().addSymbol(s1);
 }
 
