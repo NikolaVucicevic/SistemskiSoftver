@@ -8,7 +8,8 @@ Simbol::Simbol(int num,
                SymbolBinding bind,
                int ndx,
                 Sekcija* sectionOwner,
-                bool externi
+                bool externi,
+                bool globalni
             )
     : num(num),
       name(name),
@@ -26,6 +27,7 @@ Simbol::Simbol()
     this->value=-1;
     this->sectionOwner = nullptr;
     this->externi = false;
+    this->globalni=false;
 }
 
 // Getteri
@@ -41,9 +43,6 @@ uint32_t Simbol::getSize() const {
     return size;
 }
 
-SymbolBinding Simbol::getBind() const {
-    return bind;
-}
 
 int Simbol::getNdx() const {
     return ndx;
@@ -59,6 +58,10 @@ Sekcija* Simbol::getSectionOwner() const {
 
 bool Simbol::isExtern() const{
     return externi;
+}
+
+bool Simbol::isGlobal() const{
+    return globalni;
 }
 
 // Setteri
@@ -78,10 +81,6 @@ void Simbol::setSize(uint32_t size) {
     this->size = size;
 }
 
-void Simbol::setBind(SymbolBinding bind) {
-    this->bind = bind;
-}
-
 void Simbol::setNdx(int ndx) {
     this->ndx = ndx;
 }
@@ -92,4 +91,8 @@ void Simbol::setSectionOwner(Sekcija* section) {
 
 void Simbol::setExtern(bool externi) {
     this->externi = externi;
+}
+
+void Simbol::setGlobal(bool globalni) {
+    this->globalni = globalni;
 }

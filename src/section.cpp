@@ -21,6 +21,10 @@ int Sekcija::getSize() const {
     return size;
 }
 
+ std::vector<byte> Sekcija::getByteCode() const {
+    return byteCode;
+}
+
 // Setteri
 void Sekcija::setName(const std::string& name) {
     this->name = name;
@@ -32,4 +36,8 @@ void Sekcija::setBase(int base) {
 
 void Sekcija::setSize(int size) {
     this->size = size;
+}
+
+void Sekcija::addByte(byte b) {
+    this->byteCode.push_back(b);
 }

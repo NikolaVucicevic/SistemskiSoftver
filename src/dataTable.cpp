@@ -20,6 +20,9 @@ void DataTable::addSymbol(Simbol* simbol) {
     if(stari==0){
        simboli[simbol->getName()] = simbol;
     }else{
+        if(stari->isExtern() && simbol->getSectionOwner()){
+            std::cout << "error\n";
+        }
         if(!stari->getSectionOwner() && stari->getValue()==-1){
             simboli[simbol->getName()] = simbol;
             std::cout << "neknadno smo definisali simbol" << simbol->getName()<<"\n";
@@ -38,7 +41,7 @@ void DataTable::addSection(Sekcija* sekcija) {
 
 void DataTable::printTable() {
     std::cout << "================= TABELA SIMBOLA =================" << std::endl;
-    std::cout << "Num\tName\t\tValue\tSize\tBind\tNdx\tSection\tExterni" << std::endl;
+    std::cout << "Num\tName\t\tValue\tSize\tNdx\tSection\tExterni" << std::endl;
     std::cout << "--------------------------------------------------" << std::endl;
 
     for (const auto& par : simboli) {
@@ -50,7 +53,6 @@ void DataTable::printTable() {
             << s->getName() << "\t\t"
             << std::hex << "0x" << s->getValue() << std::dec << "\t"
             << s->getSize() << "\t"
-            << static_cast<int>(s->getBind()) << "\t"
             << s->getNdx() << "\t";
 
         if (s->getSectionOwner())
@@ -61,6 +63,10 @@ void DataTable::printTable() {
             std::cout << "Eksterni";
         else
             std::cout << "Nije externi";
+        if (s->isGlobal())
+            std::cout << "Globalni";
+        else
+            std::cout << "Nije globalni";
 
         std::cout << std::endl;
     }
@@ -79,7 +85,16 @@ void DataTable::printTable() {
             << std::hex << "0x" << sec->getBase() << std::dec << "\t"
             << sec->getSize()
             << std::endl;
+
+        for (byte b : sec->getByteCode()) {
+            std::cout << b <<" ";
+        }
+        std::cout<<"\n";
     }
+
+    
+
+
 }
 
 

@@ -51,6 +51,7 @@ void dodajSimbolEqu(const char* s,int num){
     Simbol* s1= new Simbol();
     s1->setName(s);
     s1->setValue(num);
+    //ovde treba absolute section
     s1->setSectionOwner(DataTable::getInstance().getCurrentSection());
     //dodaj da je u apsolutnoj sekciji
     DataTable::getInstance().addSymbol(s1);
@@ -61,6 +62,14 @@ void dodajSimbolExt(const char* s){
     s1->setName(s);
     s1->setValue(0);
     s1->setExtern(true);
+    DataTable::getInstance().addSymbol(s1);
+}
+
+void dodajSimbolGlob(const char* s){
+    Simbol* s1= new Simbol();
+    s1->setName(s);
+    s1->setValue(0);
+    s1->setGlobal(true);
     DataTable::getInstance().addSymbol(s1);
 }
 
@@ -93,4 +102,11 @@ void endUpdates(){
     }
 }
 
+
+
+//drugi prolaz
+
+void dodajBajt(byte broj){
+    DataTable::getInstance().getCurrentSection()->addByte(broj);
+}
 

@@ -16,6 +16,7 @@ private:
     std::string name;
     Sekcija* sectionOwner;
     bool externi;
+    bool globalni;
 
 public:
     // konstruktor
@@ -26,7 +27,8 @@ public:
            SymbolBinding bind,
            int ndx,
            Sekcija* sectionOwner,
-            bool externi);
+            bool externi,
+            bool globalni);
     Simbol();
     // getteri
     int getNum() const;
@@ -37,6 +39,7 @@ public:
     std::string getName() const;
     Sekcija* getSectionOwner() const;
     bool isExtern() const;
+    bool isGlobal() const;
 
     // setteri
     void setNum(int num);
@@ -47,6 +50,7 @@ public:
     void setNdx(int ndx);
     void setSectionOwner(Sekcija* section);
     void setExtern(bool externi);
+    void setGlobal(bool globalni);
 
 };
 

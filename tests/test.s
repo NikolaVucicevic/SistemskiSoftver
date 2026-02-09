@@ -12,4 +12,5 @@ lala:
 c:
 .equ a,5
 ldr r7,q
+.word 6
 .end

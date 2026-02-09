@@ -1,6 +1,8 @@
 #ifndef MYELF_H
 #define MYELF_H
 
+using byte = unsigned char;
+
 typedef enum {
     SYM_LOCAL = 0,
     SYM_GLOBAL = 1,

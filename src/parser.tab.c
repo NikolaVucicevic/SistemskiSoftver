@@ -493,8 +493,8 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    37,    37,    40,    42,    46,    49,    51,    55,    58,
-      60,    61,    65,    70,    79,    83,    94,    98,   102,   106,
-     113,   123,   135,   137,   139,   141,   145,   147
+      60,    61,    65,    73,    82,    86,    97,   107,   114,   118,
+     125,   135,   147,   149,   151,   153,   157,   159
 };
 #endif
 
@@ -1318,14 +1318,17 @@ yyreduce:
   case 12:
 #line 65 "parser.y" /* yacc.c:1646  */
     {
-        for (int i = 0; i < simboli_len; i++) free((yyvsp[0].strlist)[i]);
+        for (int i = 0; i < simboli_len; i++){
+            dodajSimbolGlob((yyvsp[0].strlist)[i]);
+            free((yyvsp[0].strlist)[i]);
+        } 
         free((yyvsp[0].strlist));
     }
-#line 1325 "parser.tab.c" /* yacc.c:1646  */
+#line 1328 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 70 "parser.y" /* yacc.c:1646  */
+#line 73 "parser.y" /* yacc.c:1646  */
     {
 
         for (int i = 0; i < simboli_len; i++) {
@@ -1334,19 +1337,19 @@ yyreduce:
         }
         free((yyvsp[0].strlist));
     }
-#line 1338 "parser.tab.c" /* yacc.c:1646  */
+#line 1341 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 79 "parser.y" /* yacc.c:1646  */
+#line 82 "parser.y" /* yacc.c:1646  */
     {
         dodajSekciju_f((yyvsp[0].str));
     }
-#line 1346 "parser.tab.c" /* yacc.c:1646  */
+#line 1349 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 83 "parser.y" /* yacc.c:1646  */
+#line 86 "parser.y" /* yacc.c:1646  */
     {
 
         addToCounter_f(simboli_len * 2);
@@ -1357,44 +1360,53 @@ yyreduce:
         }
         free((yyvsp[0].strlist));
     }
-#line 1361 "parser.tab.c" /* yacc.c:1646  */
+#line 1364 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 94 "parser.y" /* yacc.c:1646  */
+#line 97 "parser.y" /* yacc.c:1646  */
     {
+        int val = (yyvsp[0].num);
+
+        dodajBajt(val & 0xFF);
+        dodajBajt((val >> 8) & 0xFF);
+        printf("dodajmo broj word %d\n", val);
+
         addToCounter_f((yyvsp[0].num));
     }
-#line 1369 "parser.tab.c" /* yacc.c:1646  */
+#line 1378 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 98 "parser.y" /* yacc.c:1646  */
+#line 107 "parser.y" /* yacc.c:1646  */
     {
         addToCounter_f((yyvsp[0].num));
+        for(int i=0;i<(yyvsp[0].num);i++){
+            dodajBajt(0);
+        }
     }
-#line 1377 "parser.tab.c" /* yacc.c:1646  */
+#line 1389 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 102 "parser.y" /* yacc.c:1646  */
+#line 114 "parser.y" /* yacc.c:1646  */
     {
         dodajSimbolEqu((yyvsp[-2].str), (yyvsp[0].num));
     }
-#line 1385 "parser.tab.c" /* yacc.c:1646  */
+#line 1397 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 106 "parser.y" /* yacc.c:1646  */
+#line 118 "parser.y" /* yacc.c:1646  */
     {
         endUpdates();
         ispisiTabelu_fs();
     }
-#line 1394 "parser.tab.c" /* yacc.c:1646  */
+#line 1406 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 113 "parser.y" /* yacc.c:1646  */
+#line 125 "parser.y" /* yacc.c:1646  */
     {
         simboli_len = 1;
         (yyval.strlist) = (char**)malloc(sizeof(char*));
@@ -1404,11 +1416,11 @@ yyreduce:
         if (!(yyval.strlist)[0]) { perror("strdup"); exit(1); }
 
     }
-#line 1408 "parser.tab.c" /* yacc.c:1646  */
+#line 1420 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 123 "parser.y" /* yacc.c:1646  */
+#line 135 "parser.y" /* yacc.c:1646  */
     {
         simboli_len++;
         (yyval.strlist) = (char**)realloc((yyvsp[-2].strlist), (size_t)simboli_len * sizeof(char*));
@@ -1418,23 +1430,23 @@ yyreduce:
         if (!(yyval.strlist)[simboli_len - 1]) { perror("strdup"); exit(1); }
 
     }
-#line 1422 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 26:
-#line 145 "parser.y" /* yacc.c:1646  */
-    { dodajSimbolUnd((yyvsp[0].str)); }
-#line 1428 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 27:
-#line 147 "parser.y" /* yacc.c:1646  */
-    { dodajSimbolUnd((yyvsp[0].str)); }
 #line 1434 "parser.tab.c" /* yacc.c:1646  */
     break;
 
+  case 26:
+#line 157 "parser.y" /* yacc.c:1646  */
+    { dodajSimbolUnd((yyvsp[0].str)); }
+#line 1440 "parser.tab.c" /* yacc.c:1646  */
+    break;
 
-#line 1438 "parser.tab.c" /* yacc.c:1646  */
+  case 27:
+#line 159 "parser.y" /* yacc.c:1646  */
+    { dodajSimbolUnd((yyvsp[0].str)); }
+#line 1446 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1450 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1662,7 +1674,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 150 "parser.y" /* yacc.c:1906  */
+#line 162 "parser.y" /* yacc.c:1906  */
 
 
 int yyerror(const char *s){

@@ -63,7 +63,10 @@ stmt_opt:
 
 direktiva:
     GLOBAL simboli {
-        for (int i = 0; i < simboli_len; i++) free($2[i]);
+        for (int i = 0; i < simboli_len; i++){
+            dodajSimbolGlob($2[i]);
+            free($2[i]);
+        } 
         free($2);
     }
   |
@@ -92,11 +95,20 @@ direktiva:
     }
   |
     WORD NUMBER {
+        int val = $2;
+
+        dodajBajt(val & 0xFF);
+        dodajBajt((val >> 8) & 0xFF);
+        printf("dodajmo broj word %d\n", val);
+
         addToCounter_f($2);
     }
   |
     SKIP NUMBER {
         addToCounter_f($2);
+        for(int i=0;i<$2;i++){
+            dodajBajt(0);
+        }
     }
   |
     EQU SIMBOL COMMA NUMBER {
