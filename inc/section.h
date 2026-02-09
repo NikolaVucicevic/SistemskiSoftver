@@ -21,7 +21,7 @@ public:
     const std::string& getName() const;
     int getBase() const;
     int getSize() const;
-    std::vector<byte> getByteCode() const;
+    std::vector<byte>& getByteCode();
 
     // Setteri
     void setName(const std::string& name);

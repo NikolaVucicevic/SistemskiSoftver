@@ -85,9 +85,13 @@ void DataTable::printTable() {
             << std::hex << "0x" << sec->getBase() << std::dec << "\t"
             << sec->getSize()
             << std::endl;
-
+        std::cout<<" sadrzaj \n";
         for (byte b : sec->getByteCode()) {
-            std::cout << b <<" ";
+            int val = static_cast<int>(b);
+
+            if (val < 16) std::cout << "0"; // da dobijes 2 cifre
+
+            std::cout << std::hex << val << " ";
         }
         std::cout<<"\n";
     }

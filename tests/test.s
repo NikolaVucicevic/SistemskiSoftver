@@ -6,7 +6,7 @@ ret
 .word a,b
 .word 54
 lala:
-.skip 54
+.skip 4
 .section data
 .word c,d
 c:

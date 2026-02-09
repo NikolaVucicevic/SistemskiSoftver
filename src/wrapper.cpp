@@ -1,6 +1,8 @@
 #include "wrapper.h"
 #include "dataTable.h"
 
+#include <iostream>
+
 
 
 void dodajSimbolUnd(const char* s) {
@@ -52,7 +54,7 @@ void dodajSimbolEqu(const char* s,int num){
     s1->setName(s);
     s1->setValue(num);
     //ovde treba absolute section
-    s1->setSectionOwner(DataTable::getInstance().getCurrentSection());
+    //s1->setSectionOwner(DataTable::getInstance().getCurrentSection());
     //dodaj da je u apsolutnoj sekciji
     DataTable::getInstance().addSymbol(s1);
 }
@@ -108,5 +110,6 @@ void endUpdates(){
 
 void dodajBajt(byte broj){
     DataTable::getInstance().getCurrentSection()->addByte(broj);
+    std::cout<<"dodli smo bjt ovde "<<DataTable::getInstance().getCurrentSection()->getName()<<" \n";
 }
 

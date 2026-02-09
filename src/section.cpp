@@ -21,7 +21,7 @@ int Sekcija::getSize() const {
     return size;
 }
 
- std::vector<byte> Sekcija::getByteCode() const {
+ std::vector<byte>& Sekcija::getByteCode(){
     return byteCode;
 }
 
