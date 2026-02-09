@@ -15,6 +15,7 @@ void dodajSimbolLabela(const char* s);
 void addToCounter_f(int num);
 void endUpdates();
 void dodajBajt(byte broj);
+void dodajWordSimbol(const char* s);
 
 #ifdef __cplusplus
 }

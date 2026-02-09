@@ -71,11 +71,13 @@ Install:
 - `make` *(optional)*
 
 ---
-in folder src
+
+cd src
+
 flex lexer.l for lexer
 bison -d -t parser.y for parser
 
-then in parent directory
+cd ..
 
 g++ -I./inc src/*.cpp src/lex.yy.c src/parser.tab.c -o asembler
 ./asembler < tests/test.s
