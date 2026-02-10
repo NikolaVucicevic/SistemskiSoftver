@@ -89,6 +89,7 @@ direktiva:
 
         for (int i = 0; i < simboli_len; i++) {
             dodajSimbolUnd($2[i]);
+            dodajWordSimbol_s($2[i],i*2);
             free($2[i]);
         }
         free($2);

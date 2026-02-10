@@ -5,11 +5,7 @@
 
 
 
-void dodajSimbolUnd(const char* s) {
-    Simbol* s1= new Simbol();
-    s1->setName(s);
-    DataTable::getInstance().addSymbol(s1);
-}
+
 
 void ispisiTabelu_fs(){
     DataTable::getInstance().printTable();
@@ -47,6 +43,12 @@ void dodajSekciju_f(const char* s){
     
 
 
+}
+
+void dodajSimbolUnd(const char* s) {
+    Simbol* s1= new Simbol();
+    s1->setName(s);
+    DataTable::getInstance().addSymbol(s1);
 }
 
 void dodajSimbolEqu(const char* s,int num){
@@ -111,5 +113,25 @@ void endUpdates(){
 void dodajBajt(byte broj){
     DataTable::getInstance().getCurrentSection()->addByte(broj);
     std::cout<<"dodli smo bjt ovde "<<DataTable::getInstance().getCurrentSection()->getName()<<" \n";
+}
+
+void dodajWordSimbol_s(const char* s,int offs){
+    //if second pass
+
+    DataTable& dt = DataTable::getInstance();
+
+    const auto& simboli = dt.getSimboli();
+
+    auto it = simboli.find(std::string(s));
+
+    if(it != simboli.end()){
+        Simbol* sym = it->second;
+        if(sym->getSectionOwner()==dt.getCurrentSection()){
+            //mozemo samo value od simbola da ubacimo u kod
+        }else{
+            //moramo da napravimo relokacioni zapis
+        }
+
+    }
 }
 
