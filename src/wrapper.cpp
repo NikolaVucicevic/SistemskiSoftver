@@ -112,7 +112,6 @@ void endUpdates(){
 
 void dodajBajt(byte broj){
     DataTable::getInstance().getCurrentSection()->addByte(broj);
-    std::cout<<"dodli smo bjt ovde "<<DataTable::getInstance().getCurrentSection()->getName()<<" \n";
 }
 
 void dodajWordSimbol_s(const char* s,int offs){
