@@ -134,3 +134,19 @@ void dodajWordSimbol_s(const char* s,int offs){
     }
 }
 
+
+void upisiHALT(){
+    DataTable::getInstance().getCurrentSection()->addByte(0);
+    addToCounter_f(1);
+}
+
+void upisiIRET(){
+    DataTable::getInstance().getCurrentSection()->addByte(0x20);
+    addToCounter_f(1);
+}
+
+void upisiRET(){
+    DataTable::getInstance().getCurrentSection()->addByte(0x40);
+    addToCounter_f(1);
+}
+

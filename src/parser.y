@@ -145,11 +145,11 @@ simboli:
 ;
 
 naredba:
-    HALT
+    HALT { upisiHALT(); }
   |
-    IRET
+    IRET { upisiIRET(); }
   |
-    RET
+    RET { upisiRET(); }
   |
     LDR REGISTER COMMA operand
 ;

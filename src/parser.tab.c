@@ -1434,20 +1434,38 @@ yyreduce:
 #line 1435 "parser.tab.c" /* yacc.c:1646  */
     break;
 
+  case 22:
+#line 148 "parser.y" /* yacc.c:1646  */
+    { upisiHALT(); }
+#line 1441 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 150 "parser.y" /* yacc.c:1646  */
+    { upisiIRET(); }
+#line 1447 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 152 "parser.y" /* yacc.c:1646  */
+    { upisiRET(); }
+#line 1453 "parser.tab.c" /* yacc.c:1646  */
+    break;
+
   case 26:
 #line 158 "parser.y" /* yacc.c:1646  */
     { dodajSimbolUnd((yyvsp[0].str)); }
-#line 1441 "parser.tab.c" /* yacc.c:1646  */
+#line 1459 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 160 "parser.y" /* yacc.c:1646  */
     { dodajSimbolUnd((yyvsp[0].str)); }
-#line 1447 "parser.tab.c" /* yacc.c:1646  */
+#line 1465 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1451 "parser.tab.c" /* yacc.c:1646  */
+#line 1469 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -22,6 +22,10 @@ void endUpdates();
 void dodajBajt(byte broj);
 void dodajWordSimbol_s(const char* s,int offs);
 
+void upisiHALT();
+void upisiIRET();
+void upisiRET();
+
 #ifdef __cplusplus
 }
 #endif
