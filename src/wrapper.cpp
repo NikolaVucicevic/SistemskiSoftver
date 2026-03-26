@@ -12,6 +12,9 @@ void ispisiTabelu_fs(){
 }
 
 void dodajSekciju_f(const char* s){
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     DataTable& dt = DataTable::getInstance();
 
     // 1. Ako postoji prethodna sekcija — zatvori je
@@ -46,12 +49,18 @@ void dodajSekciju_f(const char* s){
 }
 
 void dodajSimbolUnd(const char* s) {
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     Simbol* s1= new Simbol();
     s1->setName(s);
     DataTable::getInstance().addSymbol(s1);
 }
 
 void dodajSimbolEqu(const char* s,int num){
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     Simbol* s1= new Simbol();
     s1->setName(s);
     s1->setValue(num);
@@ -62,6 +71,9 @@ void dodajSimbolEqu(const char* s,int num){
 }
 
 void dodajSimbolExt(const char* s){
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     Simbol* s1= new Simbol();
     s1->setName(s);
     s1->setValue(0);
@@ -70,6 +82,9 @@ void dodajSimbolExt(const char* s){
 }
 
 void dodajSimbolGlob(const char* s){
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     Simbol* s1= new Simbol();
     s1->setName(s);
     s1->setValue(0);
@@ -78,6 +93,9 @@ void dodajSimbolGlob(const char* s){
 }
 
 void dodajSimbolLabela(const char* s){
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     Simbol* s1 = new Simbol();
     s1->setName(s);
 
@@ -95,6 +113,9 @@ void addToCounter_f(int num){
 }
 
 void endUpdates(){
+    if(!DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     DataTable& dt = DataTable::getInstance();
 
     // 1. Ako postoji prethodna sekcija — zatvori je
@@ -104,6 +125,7 @@ void endUpdates(){
             dt.getLocationCounter() - prev->getBase()
         );
     }
+    dt.setPrviProlaz();
 }
 
 
@@ -111,11 +133,17 @@ void endUpdates(){
 //drugi prolaz
 
 void dodajBajt(byte broj){
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     DataTable::getInstance().getCurrentSection()->addByte(broj);
 }
 
 void dodajWordSimbol_s(const char* s,int offs){
     //if second pass
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
 
     DataTable& dt = DataTable::getInstance();
 
@@ -136,16 +164,26 @@ void dodajWordSimbol_s(const char* s,int offs){
 
 
 void upisiHALT(){
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+    
     DataTable::getInstance().getCurrentSection()->addByte(0);
     addToCounter_f(1);
 }
 
 void upisiIRET(){
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     DataTable::getInstance().getCurrentSection()->addByte(0x20);
     addToCounter_f(1);
 }
 
 void upisiRET(){
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
     DataTable::getInstance().getCurrentSection()->addByte(0x40);
     addToCounter_f(1);
 }

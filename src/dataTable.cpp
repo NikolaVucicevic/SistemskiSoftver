@@ -1,5 +1,6 @@
 #include "dataTable.h"
 #include <iostream>
+#include <iomanip>
 
 // Privatni konstruktor
 DataTable::DataTable() {
@@ -33,42 +34,45 @@ void DataTable::addSymbol(Simbol* simbol) {
 
 void DataTable::addSection(Sekcija* sekcija) {
     if (!sekcija) return;
-    if(sekcije[sekcija->getName()]==0){
-       sekcije[sekcija->getName()] = sekcija;
+    if (sekcije.find(sekcija->getName()) == sekcije.end()) {
+        sekcije[sekcija->getName()] = sekcija;
     }
     this->currentSection = sekcija;
 }
 
 void DataTable::printTable() {
     std::cout << "================= TABELA SIMBOLA =================" << std::endl;
-    std::cout << "Num\tName\t\tValue\tSize\tNdx\tSection\tExterni" << std::endl;
-    std::cout << "--------------------------------------------------" << std::endl;
+
+    std::cout << std::left
+              << std::setw(5)  << "Num"
+              << std::setw(15) << "Name"
+              << std::setw(10) << "Value"
+              << std::setw(6)  << "Size"
+              << std::setw(6)  << "Ndx"
+              << std::setw(12) << "Section"
+              << std::setw(12) << "Externi"
+              << std::setw(12) << "Globalni"
+              << std::endl;
+
+    std::cout << "--------------------------------------------------------------" << std::endl;
 
     for (const auto& par : simboli) {
         Simbol* s = par.second;
         if (!s) continue;
 
-        std::cout
-            << s->getNum() << "\t"
-            << s->getName() << "\t\t"
-            << std::hex << "0x" << s->getValue() << std::dec << "\t"
-            << s->getSize() << "\t"
-            << s->getNdx() << "\t";
+        std::stringstream val;
+        val << "0x" << std::hex << s->getValue();
 
-        if (s->getSectionOwner())
-            std::cout << s->getSectionOwner()->getName()<< "\t";
-        else
-            std::cout << "UND"<< "\t";
-        if (s->isExtern())
-            std::cout << "Eksterni";
-        else
-            std::cout << "Nije externi";
-        if (s->isGlobal())
-            std::cout << "Globalni";
-        else
-            std::cout << "Nije globalni";
-
-        std::cout << std::endl;
+        std::cout << std::left
+                  << std::setw(5)  << s->getNum()
+                  << std::setw(15) << s->getName()
+                  << std::setw(10) << val.str()
+                  << std::setw(6)  << s->getSize()
+                  << std::setw(6)  << s->getNdx()
+                  << std::setw(12) << (s->getSectionOwner() ? s->getSectionOwner()->getName() : "UND")
+                  << std::setw(12) << (s->isExtern() ? "Eksterni" : "Ne")
+                  << std::setw(12) << (s->isGlobal() ? "Globalni" : "Ne")
+                  << std::endl;
     }
 
     std::cout << std::endl;
@@ -126,4 +130,12 @@ int DataTable::getLocationCounter() const{
 
 void DataTable::addLocationCounter(int num){
     locationCounter+=num;
+}
+
+bool DataTable::getPrviProlaz() const{
+    return prviProlaz;
+}
+
+void DataTable::setPrviProlaz(){
+    prviProlaz=!prviProlaz;
 }

@@ -7,9 +7,12 @@
 extern int yylex();
 
 int main() {
-    printf("ULAZIM U PARSER\n");
+    printf("ULAZIM U PARSER1\n");
     yyparse();
-    printf("IZLAZIM IZ PARSER\n");
+    printf("IZLAZIM IZ PARSER1\n");
+    printf("ULAZIM U PARSER2\n");
+    yyparse();
+    printf("IZLAZIM IZ PARSER2\n");
 
     
     FILE *fileHandle = fopen("generated.o", "wb");

@@ -36,6 +36,8 @@ public:
     void setCurrentSection(Sekcija* section);
     int getLocationCounter() const;
     void addLocationCounter(int num);
+    bool getPrviProlaz() const;
+    void setPrviProlaz();
 
 
 
