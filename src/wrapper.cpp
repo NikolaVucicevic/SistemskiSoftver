@@ -12,10 +12,19 @@ void ispisiTabelu_fs(){
 }
 
 void dodajSekciju_f(const char* s){
-    if(!DataTable::getInstance().getPrviProlaz()){
+    DataTable& dt = DataTable::getInstance();
+    if(!dt.getPrviProlaz()){
+        //drugi prolaz
+        Sekcija* sek = dt.getSectionByName(s);
+
+        if(sek == nullptr){
+            printf("GRESKA: sekcija %s ne postoji u drugom prolazu\n", s);
+            exit(1);
+        }
+
+        dt.setCurrentSection(sek);
         return;
     }
-    DataTable& dt = DataTable::getInstance();
 
     // 1. Ako postoji prethodna sekcija — zatvori je
     Sekcija* prev = dt.getCurrentSection();
@@ -126,7 +135,7 @@ void endUpdates(){
             dt.getLocationCounter() - prev->getBase()
         );
     }
-    dt.setPrviProlaz();
+    //dt.setPrviProlaz();
 }
 
 

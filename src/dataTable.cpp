@@ -139,5 +139,17 @@ bool DataTable::getPrviProlaz() const{
 }
 
 void DataTable::setPrviProlaz(){
-    prviProlaz=!prviProlaz;
+    this->prviProlaz=false;
+    this->currentSection=nullptr;
+    this->locationCounter=0;
+}
+
+Sekcija* DataTable::getSectionByName(const std::string& name) {
+    auto it = sekcije.find(name);
+
+    if (it == sekcije.end()) {
+        return nullptr;
+    }
+
+    return it->second;
 }

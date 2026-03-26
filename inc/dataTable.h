@@ -39,6 +39,7 @@ public:
     void addLocationCounter(int num);
     bool getPrviProlaz() const;
     void setPrviProlaz();
+    Sekcija* getSectionByName(const std::string& name);
 
 
 
