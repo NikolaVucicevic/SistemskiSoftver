@@ -64,6 +64,7 @@ void dodajSimbolEqu(const char* s,int num){
     Simbol* s1= new Simbol();
     s1->setName(s);
     s1->setValue(num);
+    s1->setSectionOwner(DataTable::getInstance().absSection);
     //ovde treba absolute section
     //s1->setSectionOwner(DataTable::getInstance().getCurrentSection());
     //dodaj da je u apsolutnoj sekciji
@@ -164,27 +165,30 @@ void dodajWordSimbol_s(const char* s,int offs){
 
 
 void upisiHALT(){
+    addToCounter_f(1);
     if(DataTable::getInstance().getPrviProlaz()){
         return;
     }
     
     DataTable::getInstance().getCurrentSection()->addByte(0);
-    addToCounter_f(1);
+    
 }
 
 void upisiIRET(){
+    addToCounter_f(1);
     if(DataTable::getInstance().getPrviProlaz()){
         return;
     }
     DataTable::getInstance().getCurrentSection()->addByte(0x20);
-    addToCounter_f(1);
+    
 }
 
 void upisiRET(){
+    addToCounter_f(1);
     if(DataTable::getInstance().getPrviProlaz()){
         return;
     }
     DataTable::getInstance().getCurrentSection()->addByte(0x40);
-    addToCounter_f(1);
+    
 }
 

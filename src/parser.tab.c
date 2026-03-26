@@ -1373,7 +1373,7 @@ yyreduce:
         dodajBajt((val >> 8) & 0xFF);
         printf("dodajmo broj word %d\n", val);
 
-        addToCounter_f((yyvsp[0].num));
+        addToCounter_f(2);
     }
 #line 1379 "parser.tab.c" /* yacc.c:1646  */
     break;

@@ -102,7 +102,7 @@ direktiva:
         dodajBajt((val >> 8) & 0xFF);
         printf("dodajmo broj word %d\n", val);
 
-        addToCounter_f($2);
+        addToCounter_f(2);
     }
   |
     SKIP NUMBER {

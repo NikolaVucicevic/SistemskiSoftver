@@ -21,6 +21,7 @@ private:
 
 
 public:
+    static Sekcija* absSection;
     //Zabranjeno kopiranje i dodela
     DataTable(const DataTable&) = delete;
     DataTable& operator=(const DataTable&) = delete;

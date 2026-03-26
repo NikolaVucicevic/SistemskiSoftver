@@ -2,6 +2,8 @@
 #include <iostream>
 #include <iomanip>
 
+Sekcija* DataTable::absSection = new Sekcija("ABS", 0, 0);
+
 // Privatni konstruktor
 DataTable::DataTable() {
     this->prviProlaz=true;
