@@ -7,6 +7,8 @@ d:
 .word a,b
 .word 54
 add r1, r2
+and r1, r2
+shl r1, r2
 lala:
 .skip 4
 .word 33

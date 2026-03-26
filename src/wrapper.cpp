@@ -173,6 +173,9 @@ void dodajWordSimbol_s(const char* s,int offs){
             dodajBajt(val & 0xFF);
             dodajBajt((val >> 8) & 0xFF);
         }else{
+            dodajBajt(0);
+            dodajBajt(0);
+
             //moramo da napravimo relokacioni zapis
             
         }
@@ -242,94 +245,125 @@ void upisiPOP(int reg) {
 
 void upisiXCHG(int r1, int r2) {
     addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
+
+    if (DataTable::getInstance().getPrviProlaz()) {
         return;
     }
+
+    auto sekcija = DataTable::getInstance().getCurrentSection();
+
+    uint8_t byte1 = 0b01100000; // 0x60
+    uint8_t byte2 = ((r1 & 0xF) << 4) | (r2 & 0xF);
+
+    sekcija->addByte(byte1);
+    sekcija->addByte(byte2);
+}
+
+//------------Instrukcije aritmetickih operacija-----------
+
+void upisiAritInstr(uint8_t mmmm, int r1, int r2) {
+    addToCounter_f(2);
+
+    if (DataTable::getInstance().getPrviProlaz()) {
+        return;
+    }
+
+    auto sekcija = DataTable::getInstance().getCurrentSection();
+
+    uint8_t byte1 = (0b0111 << 4) | (mmmm & 0xF);
+    uint8_t byte2 = ((r1 & 0xF) << 4) | (r2 & 0xF);
+
+    sekcija->addByte(byte1);
+    sekcija->addByte(byte2);
 }
 
 void upisiADD(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiAritInstr(0b0000, r1, r2);
 }
 
 void upisiSUB(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiAritInstr(0b0001, r1, r2);
 }
 
 void upisiMUL(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiAritInstr(0b0010, r1, r2);
 }
 
 void upisiDIV(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiAritInstr(0b0011, r1, r2);
 }
 
 void upisiCMP(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiAritInstr(0b0100, r1, r2);
 }
 
-void upisiNOT(int reg) {
+//------------Instrukcije logickih operacija-----------
+
+void upisiLogInstr(uint8_t mmmm, int r1, int r2) {
     addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
+
+    if (DataTable::getInstance().getPrviProlaz()) {
         return;
     }
+
+    auto sekcija = DataTable::getInstance().getCurrentSection();
+
+    uint8_t byte1 = (0b1000 << 4) | (mmmm & 0xF);
+    uint8_t byte2 = ((r1 & 0xF) << 4) | (r2 & 0xF);
+
+    sekcija->addByte(byte1);
+    sekcija->addByte(byte2);
+}
+
+
+void upisiNOT(int r1) {
+    upisiLogInstr(0b0000, r1, 0); // SSSS = 0
 }
 
 void upisiAND(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiLogInstr(0b0001, r1, r2);
 }
 
 void upisiOR(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiLogInstr(0b0010, r1, r2);
 }
 
 void upisiXOR(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiLogInstr(0b0011, r1, r2);
 }
 
 void upisiTEST(int r1, int r2) {
+    upisiLogInstr(0b0100, r1, r2);
+}
+
+//------------Instrukcije pomerackih operacija-----------
+
+void upisiShiftInstr(uint8_t mmmm, int r1, int r2) {
     addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
+
+    if (DataTable::getInstance().getPrviProlaz()) {
         return;
     }
+
+    auto sekcija = DataTable::getInstance().getCurrentSection();
+
+    uint8_t byte1 = (0b1001 << 4) | (mmmm & 0xF);
+    uint8_t byte2 = ((r1 & 0xF) << 4) | (r2 & 0xF);
+
+    sekcija->addByte(byte1);
+    sekcija->addByte(byte2);
 }
 
 void upisiSHL(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiShiftInstr(0b0000, r1, r2);
 }
 
 void upisiSHR(int r1, int r2) {
-    addToCounter_f(2);
-    if(DataTable::getInstance().getPrviProlaz()){
-        return;
-    }
+    upisiShiftInstr(0b0001, r1, r2);
 }
+
+
+
 
 void upisiLDR(int reg, auto operand) {}
 
