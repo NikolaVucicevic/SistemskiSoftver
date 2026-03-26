@@ -3,15 +3,16 @@
 .section text
 iret
 ret
+d:
 .word a,b
 .word 54
 add r1, r2
 lala:
 .skip 4
+.word 33
 .section data
 .word c,d
 c:
 .equ a,5
-ldr r7,q
 .word 6
 .end

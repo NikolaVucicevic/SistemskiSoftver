@@ -163,10 +163,18 @@ void dodajWordSimbol_s(const char* s,int offs){
 
     if(it != simboli.end()){
         Simbol* sym = it->second;
-        if(sym->getSectionOwner()==dt.getCurrentSection()){
+        if(sym->getSectionOwner()==dt.absSection){
+            int val = sym->getValue();
+            dodajBajt(val & 0xFF);
+            dodajBajt((val >> 8) & 0xFF);
+        }else if(sym->getSectionOwner()==dt.getCurrentSection()){
             //mozemo samo value od simbola da ubacimo u kod
+            int val = sym->getValue();
+            dodajBajt(val & 0xFF);
+            dodajBajt((val >> 8) & 0xFF);
         }else{
             //moramo da napravimo relokacioni zapis
+            
         }
 
     }
