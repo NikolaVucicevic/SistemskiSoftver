@@ -54,10 +54,17 @@
 
 "sp"  { return STACK_POINTER; }
 "pc"  { return PROGRAM_COUNTER; }
-"psw" { return PROGRAM_STATUS_WORD; }
 
 
-"r"[0-7] { return REGISTER; }
+"r0"   { yylval.num = 0; return REGISTER; }
+"r1"   { yylval.num = 1; return REGISTER; }
+"r2"   { yylval.num = 2; return REGISTER; }
+"r3"   { yylval.num = 3; return REGISTER; }
+"r4"   { yylval.num = 4; return REGISTER; }
+"r5"   { yylval.num = 5; return REGISTER; }
+"r6"   { yylval.num = 6; return REGISTER; }
+"r7"   { yylval.num = 7; return REGISTER; }
+"psw"  { yylval.num = 8; return REGISTER; }
 
 [a-zA-Z_][a-zA-Z0-9_]* {
     yylval.str = strdup(yytext);

@@ -26,7 +26,7 @@ static int simboli_len = 0;
 %token PUSH POP XCHG ADD SUB MUL DIV CMP NOT
 %token AND OR XOR TEST SHL SHR LDR STR
 %token STACK_POINTER PROGRAM_COUNTER PROGRAM_STATUS_WORD
-%token REGISTER
+%token <num> REGISTER
 %token<str> SIMBOL
 
 %type <strlist> simboli
@@ -151,7 +151,51 @@ naredba:
   |
     RET { upisiRET(); }
   |
-    LDR REGISTER COMMA operand
+    INT REGISTER { upisiINT($2); }
+  |
+  /*  CALL operand { upisiCALL($2); }
+  |
+    JMP operand { upisiJMP($2); }
+  |
+    JEQ operand { upisiJEQ($2); }
+  |
+    JNE operand { upisiJNE($2); }
+  |
+    JGT operand { upisiJGT($2); }
+  |*/
+    PUSH REGISTER { upisiPUSH($2); }
+  |
+    POP REGISTER { upisiPOP($2); }
+  |
+    XCHG REGISTER COMMA REGISTER { upisiXCHG($2, $4); }
+  |
+    ADD REGISTER COMMA REGISTER { upisiADD($2, $4); }
+  |
+    SUB REGISTER COMMA REGISTER { upisiSUB($2, $4); }
+  |
+    MUL REGISTER COMMA REGISTER { upisiMUL($2, $4); }
+  |
+    DIV REGISTER COMMA REGISTER { upisiDIV($2, $4); }
+  |
+    CMP REGISTER COMMA REGISTER { upisiCMP($2, $4); }
+  |
+    NOT REGISTER { upisiNOT($2); }
+  |
+    AND REGISTER COMMA REGISTER { upisiAND($2, $4); }
+  |
+    OR REGISTER COMMA REGISTER { upisiOR($2, $4); }
+  |
+    XOR REGISTER COMMA REGISTER { upisiXOR($2, $4); }
+  |
+    TEST REGISTER COMMA REGISTER { upisiTEST($2, $4); }
+  |
+    SHL REGISTER COMMA REGISTER { upisiSHL($2, $4); }
+  |
+    SHR REGISTER COMMA REGISTER { upisiSHR($2, $4); }
+  |
+    LDR REGISTER COMMA operand { }
+  /*|
+    STR REGISTER COMMA operand { upisiSTR($2, $4); }*/
 ;
 
 operand:

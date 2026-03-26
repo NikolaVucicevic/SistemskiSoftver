@@ -192,3 +192,128 @@ void upisiRET(){
     
 }
 
+void upisiINT(int reg) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiCALL(auto operand) {}
+
+void upisiJMP(auto operand) {}
+
+void upisiJEQ(auto operand) {}
+
+void upisiJNE(auto operand) {}
+
+void upisiJGT(auto operand) {}
+
+void upisiPUSH(int reg) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiPOP(int reg) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiXCHG(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiADD(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiSUB(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiMUL(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiDIV(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiCMP(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiNOT(int reg) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiAND(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiOR(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiXOR(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiTEST(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiSHL(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiSHR(int r1, int r2) {
+    addToCounter_f(2);
+    if(DataTable::getInstance().getPrviProlaz()){
+        return;
+    }
+}
+
+void upisiLDR(int reg, auto operand) {}
+
+void upisiSTR(int reg, auto operand) {}

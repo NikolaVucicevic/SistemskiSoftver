@@ -5,6 +5,7 @@ iret
 ret
 .word a,b
 .word 54
+add r1, r2
 lala:
 .skip 4
 .section data
