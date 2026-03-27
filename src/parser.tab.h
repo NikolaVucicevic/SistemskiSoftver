@@ -108,7 +108,8 @@ union YYSTYPE
     char* str;
     char** strlist;   /* dinamički niz char* */
 
-#line 112 "parser.tab.h" /* yacc.c:1909  */
+
+#line 113 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

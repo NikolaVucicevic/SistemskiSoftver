@@ -15,6 +15,7 @@ static int simboli_len = 0;
     int num;
     char* str;
     char** strlist;   /* dinamički niz char* */
+
 }
 
 /* tokeni */
@@ -30,6 +31,7 @@ static int simboli_len = 0;
 %token<str> SIMBOL
 
 %type <strlist> simboli
+
 
 %%
 
@@ -199,9 +201,23 @@ naredba:
 ;
 
 operand:
-    DOLLAR SIMBOL { dodajSimbolUnd($2); }
+    DOLLAR SIMBOL {
+      dodajSimbolUnd($2);
+    }
   |
     SIMBOL { dodajSimbolUnd($1); }
+  |
+    NUMBER { }
+  |
+    DOLLAR NUMBER {  }
+  |
+    REGISTER {  }
+  |
+    L_BRACKET REGISTER R_BRACKET {  }
+  | 
+    L_BRACKET REGISTER PLUS NUMBER R_BRACKET {  }
+  | 
+    L_BRACKET REGISTER PLUS SIMBOL R_BRACKET { dodajSimbolUnd($4); }
 ;
 
 %%

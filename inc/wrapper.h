@@ -4,6 +4,22 @@ extern "C" {
 
 typedef unsigned char byte;
 
+typedef enum {
+    IMMEDIATE,
+    REG_DIR,
+    REG_IND,
+    REG_IND_OFF,
+    MEM_DIR
+} AddrMode;
+
+typedef struct {
+    AddrMode mode;
+    int reg;
+    int literal;
+    char* simbol;
+    int imaPayload;
+} Operand;
+
 void novaSekcija_c();
 
 void dodajSekciju_f(const char* s);
