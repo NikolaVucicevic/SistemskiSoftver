@@ -1,3 +1,6 @@
+#ifndef WRAPPER_H
+#define WRAPPER_H
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,11 +47,11 @@ void upisiRET();
 
 void upisiINT(int reg);
 
-void upisiCALL(auto operand);
-void upisiJMP(auto operand);
-void upisiJEQ(auto operand);
-void upisiJNE(auto operand);
-void upisiJGT(auto operand);
+void upisiCALL(Operand* operand);
+void upisiJMP(Operand* operand);
+void upisiJEQ(Operand* operand);
+void upisiJNE(Operand* operand);
+void upisiJGT(Operand* operand);
 
 void upisiPUSH(int reg);
 void upisiPOP(int reg);
@@ -71,9 +74,11 @@ void upisiTEST(int r1, int r2);
 void upisiSHL(int r1, int r2);
 void upisiSHR(int r1, int r2);
 
-void upisiLDR(int reg, auto operand);
-void upisiSTR(int reg, auto operand);
+void upisiLDR(int reg, Operand* operand);
+void upisiSTR(int reg, Operand* op);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

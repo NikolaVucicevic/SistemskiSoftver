@@ -39,6 +39,12 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 1 "parser.y" /* yacc.c:1909  */
+
+    #include "wrapper.h"
+
+#line 48 "parser.tab.h" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -102,14 +108,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "parser.y" /* yacc.c:1909  */
+#line 18 "parser.y" /* yacc.c:1909  */
 
     int num;
     char* str;
     char** strlist;   /* dinamički niz char* */
+    Operand* op;
 
-
-#line 113 "parser.tab.h" /* yacc.c:1909  */
+#line 119 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

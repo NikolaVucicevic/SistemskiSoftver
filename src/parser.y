@@ -1,3 +1,7 @@
+%code requires {
+    #include "wrapper.h"
+}
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +19,7 @@ static int simboli_len = 0;
     int num;
     char* str;
     char** strlist;   /* dinamički niz char* */
-
+    Operand* op;
 }
 
 /* tokeni */
@@ -31,6 +35,7 @@ static int simboli_len = 0;
 %token<str> SIMBOL
 
 %type <strlist> simboli
+%type <op> operand
 
 
 %%
@@ -203,6 +208,13 @@ naredba:
 operand:
     DOLLAR SIMBOL {
       dodajSimbolUnd($2);
+
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = IMMEDIATE;
+      $$->reg = -1;
+      $$->literal = 0;
+      $$->simbol = strdup($2);
+      $$->imaPayload = 1;
     }
   |
     SIMBOL { dodajSimbolUnd($1); }
