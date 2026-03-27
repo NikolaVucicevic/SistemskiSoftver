@@ -368,16 +368,16 @@ void upisiSHR(int r1, int r2) {
 void upisiLDR(int reg, Operand* operand) {}
 
 void upisiSTR(int reg, Operand* op) {
-/*
+
     if (op->mode == REG_IND_OFF || op->mode == MEM_DIR){
-            addToCounter_f(5);
+        addToCounter_f(5);
     }else{
         addToCounter_f(3);
     }
     if (DataTable::getInstance().getPrviProlaz()) {
         return;
     }
-
+    printf("Usli smo u drugi prolaz u store");
     uint8_t byte1 = 0b10110000;
 
     uint8_t byte2 = (reg << 4);
@@ -458,7 +458,5 @@ void upisiSTR(int reg, Operand* op) {
             sekcija->addByte((op->literal >> 8) & 0xFF);
         }
     }
-
-*/
 
 }

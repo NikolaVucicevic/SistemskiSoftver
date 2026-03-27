@@ -201,8 +201,8 @@ naredba:
     SHR REGISTER COMMA REGISTER { upisiSHR($2, $4); }
   |
     LDR REGISTER COMMA operand { }
-  /*|
-    STR REGISTER COMMA operand { upisiSTR($2, $4); }*/
+  |
+    STR REGISTER COMMA operand { upisiSTR($2, $4); }
 ;
 
 operand:
@@ -217,19 +217,72 @@ operand:
       $$->imaPayload = 1;
     }
   |
-    SIMBOL { dodajSimbolUnd($1); }
+    SIMBOL {
+      dodajSimbolUnd($1);
+
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = MEM_DIR;
+      $$->reg = -1;
+      $$->literal = 0;
+      $$->simbol = strdup($1);
+      $$->imaPayload = 1;
+    }
   |
-    NUMBER { }
+    NUMBER {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = MEM_DIR;
+      $$->reg = -1;
+      $$->literal = $1;
+      $$->simbol = nullptr;
+      $$->imaPayload = 1;
+    }
   |
-    DOLLAR NUMBER {  }
+    DOLLAR NUMBER {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = IMMEDIATE;
+      $$->reg = -1;
+      $$->literal = $2;
+      $$->simbol = nullptr;
+      $$->imaPayload = 1;
+    }
   |
-    REGISTER {  }
+    REGISTER {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_DIR;
+      $$->reg = $1;
+      $$->literal = 0;
+      $$->simbol = nullptr;
+      $$->imaPayload = 0;
+    }
   |
-    L_BRACKET REGISTER R_BRACKET {  }
+    L_BRACKET REGISTER R_BRACKET {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_IND;
+      $$->reg = $2;
+      $$->literal = 0;
+      $$->simbol = nullptr;
+      $$->imaPayload = 0;
+    }
   | 
-    L_BRACKET REGISTER PLUS NUMBER R_BRACKET {  }
+    L_BRACKET REGISTER PLUS NUMBER R_BRACKET {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_IND_OFF;
+      $$->reg = $2;
+      $$->literal = $4;
+      $$->simbol = nullptr;
+      $$->imaPayload = 1;
+    }
   | 
-    L_BRACKET REGISTER PLUS SIMBOL R_BRACKET { dodajSimbolUnd($4); }
+    L_BRACKET REGISTER PLUS SIMBOL R_BRACKET {
+      dodajSimbolUnd($4);
+
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_IND_OFF;
+      $$->reg = $2;
+      $$->literal = 0;
+      $$->simbol = strdup($4);
+      $$->imaPayload = 1;
+    }
 ;
 
 %%
