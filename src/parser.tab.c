@@ -1599,13 +1599,13 @@ yyreduce:
 
   case 41:
 #line 203 "parser.y" /* yacc.c:1646  */
-    { }
+    { upisiLoadStore((yyvsp[-2].num), (yyvsp[0].op), 1); }
 #line 1604 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
 #line 205 "parser.y" /* yacc.c:1646  */
-    { upisiSTR((yyvsp[-2].num), (yyvsp[0].op)); }
+    { upisiLoadStore((yyvsp[-2].num), (yyvsp[0].op), 0); }
 #line 1610 "parser.tab.c" /* yacc.c:1646  */
     break;
 

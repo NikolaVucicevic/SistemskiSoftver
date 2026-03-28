@@ -200,9 +200,9 @@ naredba:
   |
     SHR REGISTER COMMA REGISTER { upisiSHR($2, $4); }
   |
-    LDR REGISTER COMMA operand { }
+    LDR REGISTER COMMA operand { upisiLoadStore($2, $4, 1); }
   |
-    STR REGISTER COMMA operand { upisiSTR($2, $4); }
+    STR REGISTER COMMA operand { upisiLoadStore($2, $4, 0); }
 ;
 
 operand:

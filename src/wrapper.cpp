@@ -367,6 +367,105 @@ void upisiSHR(int r1, int r2) {
 
 void upisiLDR(int reg, Operand* operand) {}
 
+void upisiLoadStore(int reg, Operand* op, bool isLoad){
+    if (op->mode == REG_IND_OFF || op->mode == MEM_DIR){
+        addToCounter_f(5);
+    }else{
+        addToCounter_f(3);
+    }
+    if (DataTable::getInstance().getPrviProlaz()) {
+        return;
+    }
+    uint8_t byte1 = 0b10110000;
+    if(isLoad){
+        byte1 = 0b10100000;
+    }
+
+    uint8_t byte2 = (reg << 4);
+
+    uint8_t byte3 = 0;
+
+    switch(op->mode) {
+
+        case IMMEDIATE:
+            // 0b0000
+            if(isLoad){
+                byte3 = 0b00000100;
+            }else{
+                throw std::runtime_error("STR ne podrzava immediate adresiranje");
+                //ovo ne moze sa store treba error
+            }
+            
+            break;
+
+        case REG_DIR:
+            // 0b0001
+            byte2 |= op->reg; // SSSS
+            byte3 = 0b00000001;
+            break;
+
+        case REG_IND:
+            // 0b0010
+            byte2 |= op->reg; // SSSS
+            byte3 = 0b00000010;
+            break;
+
+        case REG_IND_OFF:
+            // 0b0011
+            byte2 |= op->reg; // SSSS
+            byte3 = 0b00000011;
+            break;
+
+        case MEM_DIR:
+            // 0b0100
+            byte3 = 0b00000100;
+            break;
+    }
+
+    auto sekcija = DataTable::getInstance().getCurrentSection();
+
+    if (sekcija == nullptr) {
+        throw std::runtime_error("Nije definisana sekcija ");
+    }
+
+    sekcija->addByte(byte1);
+    sekcija->addByte(byte2);
+    sekcija->addByte(byte3);
+
+    if (op->mode == REG_IND_OFF || op->mode == MEM_DIR) {
+        if (op->simbol != nullptr) {
+            // imamo simbol
+            auto& simboli = DataTable::getInstance().getSimboli();
+
+            auto it = simboli.find(std::string(op->simbol));
+
+            if (it == simboli.end()) {
+                throw std::runtime_error("Simbol ne postoji");
+            }
+
+
+            Simbol* sym = it->second;
+
+            
+
+            if(sym->getSectionOwner()==DataTable::getInstance().absSection){
+                int val = sym->getValue();
+
+                sekcija->addByte(val & 0xFF);
+                sekcija->addByte((val >> 8) & 0xFF);
+            }else{
+                sekcija->addByte(0);
+                sekcija->addByte(0);
+                //ovde treba relokacioni zapisi da se dodaju
+            }
+
+        }else{
+            sekcija->addByte(op->literal & 0xFF);
+            sekcija->addByte((op->literal >> 8) & 0xFF);
+        }
+    }
+}
+
 void upisiSTR(int reg, Operand* op) {
 
     if (op->mode == REG_IND_OFF || op->mode == MEM_DIR){

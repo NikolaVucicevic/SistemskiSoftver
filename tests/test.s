@@ -12,7 +12,7 @@ and r1, r2
 .word 0
 shl r1, r2
 .word 1
-str r1,r2
+ldr r1,r2
 lala:
 .skip 4
 .word 33
