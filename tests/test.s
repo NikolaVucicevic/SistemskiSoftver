@@ -6,6 +6,7 @@ ret
 d:
 .word a,b
 .word 54
+jeq c
 add r1, r2
 .word 0
 and r1, r2
@@ -17,7 +18,7 @@ lala:
 .skip 4
 .word 33
 .section data
-.word c,d
+.word c,d,c
 c:
 .equ a,5
 .word 6

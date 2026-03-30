@@ -23,6 +23,13 @@ typedef struct {
     int imaPayload;
 } Operand;
 
+typedef enum {
+    JMP_UNCOND = 0,  // jmp
+    JMP_EQ     = 1,  // jeq
+    JMP_NE     = 2,  // jne
+    JMP_GT     = 3   // jgt
+} JumpType;
+
 void novaSekcija_c();
 
 void dodajSekciju_f(const char* s);
@@ -52,6 +59,7 @@ void upisiJMP(Operand* operand);
 void upisiJEQ(Operand* operand);
 void upisiJNE(Operand* operand);
 void upisiJGT(Operand* operand);
+void upisiSkok(Operand* op,int r);
 
 void upisiPUSH(int reg);
 void upisiPOP(int reg);

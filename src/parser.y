@@ -36,6 +36,7 @@ static int simboli_len = 0;
 
 %type <strlist> simboli
 %type <op> operand
+%type <op> operand_jump
 
 %%
 
@@ -160,16 +161,16 @@ naredba:
   |
     INT REGISTER { upisiINT($2); }
   |
-  /*  CALL operand { upisiCALL($2); }
+    CALL operand_jump { upisiCALL($2); }
   |
-    JMP operand { upisiJMP($2); }
+    JMP operand_jump { upisiSkok($2,JMP_UNCOND); }
   |
-    JEQ operand { upisiJEQ($2); }
+    JEQ operand_jump { upisiSkok($2,JMP_EQ); }
   |
-    JNE operand { upisiJNE($2); }
+    JNE operand_jump { upisiSkok($2,JMP_NE); }
   |
-    JGT operand { upisiJGT($2); }
-  |*/
+    JGT operand_jump { upisiSkok($2,JMP_GT); }
+  |
     PUSH REGISTER { upisiPUSH($2); }
   |
     POP REGISTER { upisiPOP($2); }
@@ -284,6 +285,87 @@ operand:
       $$->imaPayload = 1;
     }
 ;
+
+operand_jump:
+    SIMBOL {
+      dodajSimbolUnd($1);
+
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = IMMEDIATE;
+      $$->reg = -1;
+      $$->literal = 0;
+      $$->simbol = strdup($1);
+      $$->imaPayload = 1;
+    }
+  |
+    STAR SIMBOL {
+      dodajSimbolUnd($2);
+
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = MEM_DIR;
+      $$->reg = -1;
+      $$->literal = 0;
+      $$->simbol = strdup($2);
+      $$->imaPayload = 1;
+    }
+  |
+    STAR NUMBER {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = MEM_DIR;
+      $$->reg = -1;
+      $$->literal = $2;
+      $$->simbol = nullptr;
+      $$->imaPayload = 1;
+    }
+  |
+    NUMBER {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = IMMEDIATE;
+      $$->reg = -1;
+      $$->literal = $1;
+      $$->simbol = nullptr;
+      $$->imaPayload = 1;
+    }
+  |
+    STAR REGISTER {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_DIR;
+      $$->reg = $2;
+      $$->literal = 0;
+      $$->simbol = nullptr;
+      $$->imaPayload = 0;
+    }
+  |
+    STAR L_BRACKET REGISTER R_BRACKET {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_IND;
+      $$->reg = $3;
+      $$->literal = 0;
+      $$->simbol = nullptr;
+      $$->imaPayload = 0;
+    }
+  | 
+    STAR L_BRACKET REGISTER PLUS NUMBER R_BRACKET {
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_IND_OFF;
+      $$->reg = $3;
+      $$->literal = $5;
+      $$->simbol = nullptr;
+      $$->imaPayload = 1;
+    }
+  | 
+    STAR L_BRACKET REGISTER PLUS SIMBOL R_BRACKET {
+      dodajSimbolUnd($5);
+
+      $$ = (Operand*)malloc(sizeof(Operand));
+      $$->mode = REG_IND_OFF;
+      $$->reg = $3;
+      $$->literal = 0;
+      $$->simbol = strdup($5);
+      $$->imaPayload = 1;
+    }
+;
+
 
 %%
 
