@@ -37,7 +37,6 @@ static int simboli_len = 0;
 %type <strlist> simboli
 %type <op> operand
 
-
 %%
 
 input:
@@ -92,10 +91,11 @@ direktiva:
   |
     WORD simboli {
 
-        addToCounter_f(simboli_len * 2);
+        
 
         for (int i = 0; i < simboli_len; i++) {
             dodajSimbolUnd($2[i]);
+            addToCounter_f(2);
             dodajWordSimbol_s($2[i],i*2);
             free($2[i]);
         }

@@ -2,6 +2,7 @@
 #define SECTION_H
 
 #include "myElf.h"
+#include "relocation.h"
 #include <string>
 #include <vector>
 
@@ -11,6 +12,8 @@ private:
     int base;
     int size;
     std::vector<byte> byteCode;
+
+    std::vector<Relocation*> relokacije; // ← OVO
 
 public:
     // Konstruktori
@@ -28,6 +31,9 @@ public:
     void setBase(int base);
     void setSize(int size);
     void addByte(byte b);
+
+    void addRelocation(Relocation* r);
+    const std::vector<Relocation*>& getRelokacije() const;
 };
 
 #endif

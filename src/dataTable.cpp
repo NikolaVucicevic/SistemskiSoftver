@@ -102,7 +102,43 @@ void DataTable::printTable() {
         std::cout<<"\n";
     }
 
-    
+    std::cout << "\n================= RELOKACIONI ZAPISI =================" << std::endl;
+
+    for (const auto& par : sekcije) {
+        Sekcija* sec = par.second;
+        if (!sec) continue;
+
+        const auto& rels = sec->getRelokacije();
+        if (rels.empty()) continue;
+
+        std::cout << "\nRelokacije za sekciju: " << sec->getName() << std::endl;
+
+        std::cout << std::left
+                << std::setw(10) << "Offset"
+                << std::setw(15) << "Type"
+                << std::setw(20) << "Symbol"
+                << std::setw(10) << "Addend"
+                << std::endl;
+
+        std::cout << "--------------------------------------------------------------" << std::endl;
+
+        for (Relocation* r : rels) {
+            if (!r) continue;
+
+            std::stringstream off;
+            off << "0x" << std::hex << r->getOffset();
+
+            std::string typeStr =
+                (r->getTip() == R_ABS ? "R_ABS" : "R_PC_REL");
+
+            std::cout << std::left
+                    << std::setw(10) << off.str()
+                    << std::setw(15) << typeStr
+                    << std::setw(20) << r->getSimbol()
+                    << std::setw(10) << r->getAddend()
+                    << std::endl;
+        }
+    }
 
 
 }

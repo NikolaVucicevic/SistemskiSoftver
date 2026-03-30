@@ -167,17 +167,26 @@ void dodajWordSimbol_s(const char* s,int offs){
             int val = sym->getValue();
             dodajBajt(val & 0xFF);
             dodajBajt((val >> 8) & 0xFF);
-        }else if(sym->getSectionOwner()==dt.getCurrentSection()){
-            //mozemo samo value od simbola da ubacimo u kod
-            int val = sym->getValue();
-            dodajBajt(val & 0xFF);
-            dodajBajt((val >> 8) & 0xFF);
         }else{
             dodajBajt(0);
             dodajBajt(0);
 
             //moramo da napravimo relokacioni zapis
+
+            int lc = DataTable::getInstance().getLocationCounter();
+            int offset = lc-2-DataTable::getInstance().getCurrentSection()->getBase();
+            std::string ime = std::string(s);
+            int addend = 0;
             
+            if(!sym->isExtern() && !sym->isGlobal()){
+                addend = sym->getValue();
+                Sekcija* sec=sym->getSectionOwner();
+                ime = sec->getName();
+
+            }
+            Relocation* r =new Relocation(offset, R_ABS, ime, addend);
+            DataTable::getInstance().getCurrentSection()->addRelocation(r);
+
         }
 
     }
@@ -456,8 +465,22 @@ void upisiLoadStore(int reg, Operand* op, bool isLoad){
             }else{
                 sekcija->addByte(0);
                 sekcija->addByte(0);
+
                 //ovde treba relokacioni zapisi da se dodaju
-            }
+                int lc = DataTable::getInstance().getLocationCounter();
+                int offset = lc-2-DataTable::getInstance().getCurrentSection()->getBase();
+                std::string ime = sym->getName();
+                int addend = 0;
+                
+                if(!sym->isExtern() && !sym->isGlobal()){
+                    addend = sym->getValue();
+                    Sekcija* sec=sym->getSectionOwner();
+                    ime = sec->getName();
+
+                }
+                Relocation* r =new Relocation(offset, R_ABS, ime, addend);
+                DataTable::getInstance().getCurrentSection()->addRelocation(r);
+                }
 
         }else{
             sekcija->addByte(op->literal & 0xFF);

@@ -499,8 +499,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    44,    44,    47,    49,    53,    56,    58,    62,    65,
-      67,    68,    72,    80,    89,    93,   105,   115,   122,   126,
+       0,    43,    43,    46,    48,    52,    55,    57,    61,    64,
+      66,    67,    71,    79,    88,    92,   105,   115,   122,   126,
      133,   143,   155,   157,   159,   161,   173,   175,   177,   179,
      181,   183,   185,   187,   189,   191,   193,   195,   197,   199,
      201,   203,   205,   209,   220,   231,   240,   249,   258,   267,
@@ -1347,25 +1347,25 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 44 "parser.y" /* yacc.c:1646  */
+#line 43 "parser.y" /* yacc.c:1646  */
     {  }
 #line 1353 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 49 "parser.y" /* yacc.c:1646  */
+#line 48 "parser.y" /* yacc.c:1646  */
     { }
 #line 1359 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 62 "parser.y" /* yacc.c:1646  */
+#line 61 "parser.y" /* yacc.c:1646  */
     {  dodajSimbolLabela((yyvsp[-1].str)); }
 #line 1365 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 72 "parser.y" /* yacc.c:1646  */
+#line 71 "parser.y" /* yacc.c:1646  */
     {
         for (int i = 0; i < simboli_len; i++){
             dodajSimbolGlob((yyvsp[0].strlist)[i]);
@@ -1377,7 +1377,7 @@ yyreduce:
     break;
 
   case 13:
-#line 80 "parser.y" /* yacc.c:1646  */
+#line 79 "parser.y" /* yacc.c:1646  */
     {
 
         for (int i = 0; i < simboli_len; i++) {
@@ -1390,7 +1390,7 @@ yyreduce:
     break;
 
   case 14:
-#line 89 "parser.y" /* yacc.c:1646  */
+#line 88 "parser.y" /* yacc.c:1646  */
     {
         dodajSekciju_f((yyvsp[0].str));
     }
@@ -1398,19 +1398,20 @@ yyreduce:
     break;
 
   case 15:
-#line 93 "parser.y" /* yacc.c:1646  */
+#line 92 "parser.y" /* yacc.c:1646  */
     {
 
-        addToCounter_f(simboli_len * 2);
+        
 
         for (int i = 0; i < simboli_len; i++) {
             dodajSimbolUnd((yyvsp[0].strlist)[i]);
+            addToCounter_f(2);
             dodajWordSimbol_s((yyvsp[0].strlist)[i],i*2);
             free((yyvsp[0].strlist)[i]);
         }
         free((yyvsp[0].strlist));
     }
-#line 1414 "parser.tab.c" /* yacc.c:1646  */
+#line 1415 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
@@ -1424,7 +1425,7 @@ yyreduce:
 
         addToCounter_f(2);
     }
-#line 1428 "parser.tab.c" /* yacc.c:1646  */
+#line 1429 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
@@ -1435,7 +1436,7 @@ yyreduce:
             dodajBajt(0);
         }
     }
-#line 1439 "parser.tab.c" /* yacc.c:1646  */
+#line 1440 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
@@ -1443,7 +1444,7 @@ yyreduce:
     {
         dodajSimbolEqu((yyvsp[-2].str), (yyvsp[0].num));
     }
-#line 1447 "parser.tab.c" /* yacc.c:1646  */
+#line 1448 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
@@ -1452,7 +1453,7 @@ yyreduce:
         endUpdates();
         ispisiTabelu_fs();
     }
-#line 1456 "parser.tab.c" /* yacc.c:1646  */
+#line 1457 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
@@ -1466,7 +1467,7 @@ yyreduce:
         if (!(yyval.strlist)[0]) { perror("strdup"); exit(1); }
 
     }
-#line 1470 "parser.tab.c" /* yacc.c:1646  */
+#line 1471 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
@@ -1480,133 +1481,133 @@ yyreduce:
         if (!(yyval.strlist)[simboli_len - 1]) { perror("strdup"); exit(1); }
 
     }
-#line 1484 "parser.tab.c" /* yacc.c:1646  */
+#line 1485 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 155 "parser.y" /* yacc.c:1646  */
     { upisiHALT(); }
-#line 1490 "parser.tab.c" /* yacc.c:1646  */
+#line 1491 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 157 "parser.y" /* yacc.c:1646  */
     { upisiIRET(); }
-#line 1496 "parser.tab.c" /* yacc.c:1646  */
+#line 1497 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 159 "parser.y" /* yacc.c:1646  */
     { upisiRET(); }
-#line 1502 "parser.tab.c" /* yacc.c:1646  */
+#line 1503 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 161 "parser.y" /* yacc.c:1646  */
     { upisiINT((yyvsp[0].num)); }
-#line 1508 "parser.tab.c" /* yacc.c:1646  */
+#line 1509 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 173 "parser.y" /* yacc.c:1646  */
     { upisiPUSH((yyvsp[0].num)); }
-#line 1514 "parser.tab.c" /* yacc.c:1646  */
+#line 1515 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 175 "parser.y" /* yacc.c:1646  */
     { upisiPOP((yyvsp[0].num)); }
-#line 1520 "parser.tab.c" /* yacc.c:1646  */
+#line 1521 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 177 "parser.y" /* yacc.c:1646  */
     { upisiXCHG((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1526 "parser.tab.c" /* yacc.c:1646  */
+#line 1527 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 179 "parser.y" /* yacc.c:1646  */
     { upisiADD((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1532 "parser.tab.c" /* yacc.c:1646  */
+#line 1533 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 181 "parser.y" /* yacc.c:1646  */
     { upisiSUB((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1538 "parser.tab.c" /* yacc.c:1646  */
+#line 1539 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 183 "parser.y" /* yacc.c:1646  */
     { upisiMUL((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1544 "parser.tab.c" /* yacc.c:1646  */
+#line 1545 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 185 "parser.y" /* yacc.c:1646  */
     { upisiDIV((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1550 "parser.tab.c" /* yacc.c:1646  */
+#line 1551 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 187 "parser.y" /* yacc.c:1646  */
     { upisiCMP((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1556 "parser.tab.c" /* yacc.c:1646  */
+#line 1557 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
 #line 189 "parser.y" /* yacc.c:1646  */
     { upisiNOT((yyvsp[0].num)); }
-#line 1562 "parser.tab.c" /* yacc.c:1646  */
+#line 1563 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
 #line 191 "parser.y" /* yacc.c:1646  */
     { upisiAND((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1568 "parser.tab.c" /* yacc.c:1646  */
+#line 1569 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
 #line 193 "parser.y" /* yacc.c:1646  */
     { upisiOR((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1574 "parser.tab.c" /* yacc.c:1646  */
+#line 1575 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
 #line 195 "parser.y" /* yacc.c:1646  */
     { upisiXOR((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1580 "parser.tab.c" /* yacc.c:1646  */
+#line 1581 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
 #line 197 "parser.y" /* yacc.c:1646  */
     { upisiTEST((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1586 "parser.tab.c" /* yacc.c:1646  */
+#line 1587 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
 #line 199 "parser.y" /* yacc.c:1646  */
     { upisiSHL((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1592 "parser.tab.c" /* yacc.c:1646  */
+#line 1593 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
 #line 201 "parser.y" /* yacc.c:1646  */
     { upisiSHR((yyvsp[-2].num), (yyvsp[0].num)); }
-#line 1598 "parser.tab.c" /* yacc.c:1646  */
+#line 1599 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 203 "parser.y" /* yacc.c:1646  */
     { upisiLoadStore((yyvsp[-2].num), (yyvsp[0].op), 1); }
-#line 1604 "parser.tab.c" /* yacc.c:1646  */
+#line 1605 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
 #line 205 "parser.y" /* yacc.c:1646  */
     { upisiLoadStore((yyvsp[-2].num), (yyvsp[0].op), 0); }
-#line 1610 "parser.tab.c" /* yacc.c:1646  */
+#line 1611 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
@@ -1621,7 +1622,7 @@ yyreduce:
       (yyval.op)->simbol = strdup((yyvsp[0].str));
       (yyval.op)->imaPayload = 1;
     }
-#line 1625 "parser.tab.c" /* yacc.c:1646  */
+#line 1626 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
@@ -1636,7 +1637,7 @@ yyreduce:
       (yyval.op)->simbol = strdup((yyvsp[0].str));
       (yyval.op)->imaPayload = 1;
     }
-#line 1640 "parser.tab.c" /* yacc.c:1646  */
+#line 1641 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
@@ -1649,7 +1650,7 @@ yyreduce:
       (yyval.op)->simbol = nullptr;
       (yyval.op)->imaPayload = 1;
     }
-#line 1653 "parser.tab.c" /* yacc.c:1646  */
+#line 1654 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
@@ -1662,7 +1663,7 @@ yyreduce:
       (yyval.op)->simbol = nullptr;
       (yyval.op)->imaPayload = 1;
     }
-#line 1666 "parser.tab.c" /* yacc.c:1646  */
+#line 1667 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
@@ -1675,7 +1676,7 @@ yyreduce:
       (yyval.op)->simbol = nullptr;
       (yyval.op)->imaPayload = 0;
     }
-#line 1679 "parser.tab.c" /* yacc.c:1646  */
+#line 1680 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
@@ -1688,7 +1689,7 @@ yyreduce:
       (yyval.op)->simbol = nullptr;
       (yyval.op)->imaPayload = 0;
     }
-#line 1692 "parser.tab.c" /* yacc.c:1646  */
+#line 1693 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
@@ -1701,7 +1702,7 @@ yyreduce:
       (yyval.op)->simbol = nullptr;
       (yyval.op)->imaPayload = 1;
     }
-#line 1705 "parser.tab.c" /* yacc.c:1646  */
+#line 1706 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
@@ -1716,11 +1717,11 @@ yyreduce:
       (yyval.op)->simbol = strdup((yyvsp[-1].str));
       (yyval.op)->imaPayload = 1;
     }
-#line 1720 "parser.tab.c" /* yacc.c:1646  */
+#line 1721 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1724 "parser.tab.c" /* yacc.c:1646  */
+#line 1725 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -41,3 +41,11 @@ void Sekcija::setSize(int size) {
 void Sekcija::addByte(byte b) {
     this->byteCode.push_back(b);
 }
+
+void Sekcija::addRelocation(Relocation* r) {
+    relokacije.push_back(r);
+}
+
+const std::vector<Relocation*>& Sekcija::getRelokacije() const {
+    return relokacije;
+}
