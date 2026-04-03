@@ -161,7 +161,7 @@ naredba:
   |
     INT REGISTER { upisiINT($2); }
   |
-    CALL operand_jump { upisiCALL($2); }
+    CALL operand_jump { upisiSkok($2,-1); }
   |
     JMP operand_jump { upisiSkok($2,JMP_UNCOND); }
   |

@@ -82,8 +82,7 @@ void upisiTEST(int r1, int r2);
 void upisiSHL(int r1, int r2);
 void upisiSHR(int r1, int r2);
 
-void upisiLDR(int reg, Operand* operand);
-void upisiSTR(int reg, Operand* op);
+
 void upisiLoadStore(int reg, Operand* op, bool isLoad);
 
 #ifdef __cplusplus

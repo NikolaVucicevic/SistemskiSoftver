@@ -1523,7 +1523,7 @@ yyreduce:
 
   case 26:
 #line 164 "parser.y" /* yacc.c:1646  */
-    { upisiCALL((yyvsp[0].op)); }
+    { upisiSkok((yyvsp[0].op),-1); }
 #line 1528 "parser.tab.c" /* yacc.c:1646  */
     break;
 

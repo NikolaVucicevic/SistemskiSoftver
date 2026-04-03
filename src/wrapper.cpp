@@ -192,6 +192,7 @@ void dodajWordSimbol_s(const char* s,int offs){
     }
 }
 
+//----------------------------------Instrukcije upravljanja izvršavanjem-------------------------
 
 void upisiHALT(){
     addToCounter_f(1);
@@ -221,22 +222,25 @@ void upisiRET(){
     
 }
 
+//----------------------------------Instrukcija prekida-------------------------
+
 void upisiINT(int reg) {
     addToCounter_f(2);
     if(DataTable::getInstance().getPrviProlaz()){
         return;
     }
+    uint8_t byte1 = 0b00010000;
+    uint8_t byte2 = ((reg & 0xF) << 4) | (0xF);
+
+    auto sekcija = DataTable::getInstance().getCurrentSection();
+
+    sekcija->addByte(byte1);
+    sekcija->addByte(byte2);
+
 }
 
-void upisiCALL(Operand* operand) {}
 
-void upisiJMP(Operand* operand) {}
-
-void upisiJEQ(Operand* operand) {}
-
-void upisiJNE(Operand* operand) {}
-
-void upisiJGT(Operand* operand) {}
+//----------------------------------Instrukcija operacije skoka-------------------------
 
 void upisiSkok(Operand* op,int r) {
     
@@ -248,8 +252,10 @@ void upisiSkok(Operand* op,int r) {
     if (DataTable::getInstance().getPrviProlaz()) {
         return;
     }
-    uint8_t byte1 = 0b01010000;
-    if(r==JMP_EQ){
+    uint8_t byte1 = 0b00110000;
+    if(r==JMP_UNCOND){
+        byte1 = 0b01010000;
+    }else if(r==JMP_EQ){
         byte1 = 0b01010001;
     }else if(r==JMP_NE){
         byte1 = 0b01010010;
@@ -369,6 +375,8 @@ void upisiPOP(int reg) {
     }
 }
 
+//----------------------------------Instrukcija atomickne zamene vrednosti-------------------------
+
 void upisiXCHG(int r1, int r2) {
     addToCounter_f(2);
 
@@ -385,7 +393,7 @@ void upisiXCHG(int r1, int r2) {
     sekcija->addByte(byte2);
 }
 
-//------------Instrukcije aritmetickih operacija-----------
+//----------------------------------Instrukcije aritmetickih operacija-------------------------
 
 void upisiAritInstr(uint8_t mmmm, int r1, int r2) {
     addToCounter_f(2);
@@ -423,7 +431,9 @@ void upisiCMP(int r1, int r2) {
     upisiAritInstr(0b0100, r1, r2);
 }
 
-//------------Instrukcije logickih operacija-----------
+
+
+//----------------------------Instrukcije logickih operacija-----------------------------
 
 void upisiLogInstr(uint8_t mmmm, int r1, int r2) {
     addToCounter_f(2);
@@ -462,7 +472,7 @@ void upisiTEST(int r1, int r2) {
     upisiLogInstr(0b0100, r1, r2);
 }
 
-//------------Instrukcije pomerackih operacija-----------
+//---------------------------------Instrukcije pomerackih operacija---------------------------
 
 void upisiShiftInstr(uint8_t mmmm, int r1, int r2) {
     addToCounter_f(2);
@@ -491,7 +501,8 @@ void upisiSHR(int r1, int r2) {
 
 
 
-void upisiLDR(int reg, Operand* operand) {}
+
+//---------------------------------Load/Store instrukcije---------------------------
 
 void upisiLoadStore(int reg, Operand* op, bool isLoad){
     if (op->mode == REG_IND_OFF || op->mode == MEM_DIR){
