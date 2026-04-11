@@ -33,6 +33,7 @@ public:
     void addSymbol(Simbol* simbol);
     void addSection(Sekcija* sekcija);
     const std::unordered_map<std::string,Simbol*>& getSimboli() const;
+    const std::unordered_map<std::string,Sekcija*>& getSekcije() const;
     Sekcija* getCurrentSection() const;
     void setCurrentSection(Sekcija* section);
     int getLocationCounter() const;
@@ -40,6 +41,9 @@ public:
     bool getPrviProlaz() const;
     void setPrviProlaz();
     Sekcija* getSectionByName(const std::string& name);
+
+
+    char* imena_sekcija();
 
 
 

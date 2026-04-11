@@ -1,6 +1,7 @@
 #include "dataTable.h"
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 
 Sekcija* DataTable::absSection = new Sekcija("ABS", 0, 0);
 
@@ -188,4 +189,38 @@ Sekcija* DataTable::getSectionByName(const std::string& name) {
     }
 
     return it->second;
+}
+
+const std::unordered_map<std::string,Sekcija*>& DataTable::getSekcije() const {
+    return sekcije;
+}
+
+char* DataTable::imena_sekcija() {
+    int size = 1;
+
+    for (auto& [ime, sekcija] : sekcije) {
+        size += ime.size() + 1;
+    }
+
+    char* buffer = (char*)malloc(size);
+    if (!buffer) return nullptr;
+
+    int offset = 0;
+    buffer[offset++] = '\0';
+
+    for (auto& [ime, sekcija] : sekcije) {
+        //sekcija->name_offset = offset;
+
+        std::memcpy(buffer + offset, ime.c_str(), ime.size());
+        offset += ime.size();
+
+        buffer[offset++] = '\0';
+    }
+
+    printf("BUFFER:\n");
+    printf("BUFFER SIZE: %d\n", size);
+    fwrite(buffer, 1, size, stdout);
+    printf("\n");
+
+    return buffer;
 }

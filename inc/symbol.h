@@ -34,7 +34,6 @@ public:
     int getNum() const;
     uint32_t getValue() const;
     uint32_t getSize() const;
-    SymbolBinding getBind() const;
     int getNdx() const;
     std::string getName() const;
     Sekcija* getSectionOwner() const;
@@ -46,7 +45,6 @@ public:
     void setName(const std::string& name);
     void setValue(uint32_t value);
     void setSize(uint32_t size);
-    void setBind(SymbolBinding bind);
     void setNdx(int ndx);
     void setSectionOwner(Sekcija* section);
     void setExtern(bool externi);
