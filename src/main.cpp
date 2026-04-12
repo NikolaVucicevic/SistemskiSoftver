@@ -83,6 +83,15 @@ extern void yyrestart(FILE*);
 
 std::vector<Sekcija*> sveSekcije;
 
+int section_size_shstrtab;
+
+Elf64_Ehdr elfHeader;
+std::vector<Elf64_Sym> symtab;
+std::vector<uint8_t> strtab;
+std::vector<uint8_t> shstrtab;
+std::vector<Elf64_Shdr> sectionHeaders;
+
+
 
 int generisi_elf() {
     printf("aaaa\n");
@@ -100,6 +109,8 @@ int generisi_elf() {
     char* buffer = (char*)malloc(size);
     if (!buffer) return 0;
 
+    section_size_shstrtab=size;
+
     int offset = 0;
     buffer[offset++] = '\0';
 
@@ -113,8 +124,19 @@ int generisi_elf() {
 
     printf("BUFFER:\n");
     printf("BUFFER SIZE: %d\n", size);
-    fwrite(buffer, 1, size, stdout);
-    printf("\n");
+    /*fwrite(buffer, 1, size, stdout);
+    printf("\n");*/
+
+
+    /* .shstrtab */
+    shstrtab.assign(buffer, buffer + section_size_shstrtab);
+    int i = 0;
+    while (i < shstrtab.size()) {
+        printf("[%d] %s\n", i, (char*)&shstrtab[i]);
+        i += strlen((char*)&shstrtab[i]) + 1;
+    }
+
+    
 
     struct ElfFile
     {
@@ -153,8 +175,11 @@ int generisi_elf() {
     elfFile.elfHeader.e_phentsize = 0;
     elfFile.elfHeader.e_phnum = 0;
     elfFile.elfHeader.e_shentsize = sizeof(Elf64_Shdr);
-    elfFile.elfHeader.e_shnum = 8;
-    elfFile.elfHeader.e_shstrndx = SECTION_NDX_SHSTRTAB;
+    //ovo je izmenjeno
+    elfFile.elfHeader.e_shnum = sveSekcije.size();
+    elfFile.elfHeader.e_shstrndx = sveSekcije.size()-1;
+
+    //ovo je header tu je trebalo
 
     /* .text */
     {
