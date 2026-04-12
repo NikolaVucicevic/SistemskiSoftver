@@ -12,6 +12,7 @@ class DataTable {
 private:
     std::unordered_map<std::string,Simbol*> simboli;
     std::unordered_map<std::string,Sekcija*> sekcije;
+    std::vector<Simbol*> orderedSimboli;
     std::vector<Sekcija*> ordered;
     Sekcija* currentSection;
 
@@ -43,6 +44,8 @@ public:
     void setPrviProlaz();
     Sekcija* getSectionByName(const std::string& name);
     std::vector<Sekcija*>& getOrderedGen();
+    void napraviVektorSimbola();
+    std::vector<Simbol*>& getOrderedSimboli();
 
 
 

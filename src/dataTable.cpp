@@ -230,3 +230,19 @@ std::vector<Sekcija*>& DataTable::getOrderedGen() {
     
 
 }
+
+void DataTable::napraviVektorSimbola(){
+    for (auto& par : simboli) {
+        Simbol* s = par.second;
+        if(!s->getSectionOwner() || s->getSectionOwner()->getName()!=s->getName()){
+            //sad ubacujemo
+            orderedSimboli.push_back(s);
+        }
+    }
+    
+}
+
+std::vector<Simbol*>& DataTable::getOrderedSimboli() {
+    return orderedSimboli;
+
+}

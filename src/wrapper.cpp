@@ -124,6 +124,9 @@ void addToCounter_f(int num){
 
 void endUpdates(){
     if(!DataTable::getInstance().getPrviProlaz()){
+        // ako je na kraju drugog prolaza onda napravimo vector simbola
+        DataTable::getInstance().napraviVektorSimbola();
+
         return;
     }
     DataTable& dt = DataTable::getInstance();

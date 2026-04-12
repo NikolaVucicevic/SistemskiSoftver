@@ -82,8 +82,10 @@ extern FILE* yyin;
 extern void yyrestart(FILE*);
 
 std::vector<Sekcija*> sveSekcije;
+std::vector<Simbol*> sviSimboli;
 
 int section_size_shstrtab;
+int section_size_strtab;
 
 Elf64_Ehdr elfHeader;
 std::vector<Elf64_Sym> symtab;
@@ -106,20 +108,20 @@ int generisi_elf() {
         size += sekcija->getName().size() + 2;  //.\0
     }
 
-    char* buffer = (char*)malloc(size);
-    if (!buffer) return 0;
+    char* buffer_shstrtab = (char*)malloc(size);
+    if (!buffer_shstrtab) return 0;
 
     section_size_shstrtab=size;
 
     int offset = 0;
-    buffer[offset++] = '\0';
+    buffer_shstrtab[offset++] = '\0';
 
     for(int i=1;i<sveSekcije.size();i++){
         Sekcija* sekcija = sveSekcije[i];
-        buffer[offset++] = '.';  // dodaj tacku
-        std::memcpy(buffer + offset, sekcija->getName().c_str(), sekcija->getName().size());
+        buffer_shstrtab[offset++] = '.';  // dodaj tacku
+        std::memcpy(buffer_shstrtab + offset, sekcija->getName().c_str(), sekcija->getName().size());
         offset += sekcija->getName().size();
-        buffer[offset++] = '\0';
+        buffer_shstrtab[offset++] = '\0';
     }
 
     printf("BUFFER:\n");
@@ -129,12 +131,55 @@ int generisi_elf() {
 
 
     /* .shstrtab */
-    shstrtab.assign(buffer, buffer + section_size_shstrtab);
-    int i = 0;
-    while (i < shstrtab.size()) {
-        printf("[%d] %s\n", i, (char*)&shstrtab[i]);
-        i += strlen((char*)&shstrtab[i]) + 1;
+    shstrtab.assign(buffer_shstrtab, buffer_shstrtab + section_size_shstrtab);
+    int i1 = 0;
+    while (i1 < shstrtab.size()) {
+        printf("[%d] %s\n", i1, (char*)&shstrtab[i1]);
+        i1 += strlen((char*)&shstrtab[i1]) + 1;
     }
+
+    sviSimboli = DataTable::getInstance().getOrderedSimboli();
+    printf("%zu\n", sviSimboli.size());
+
+    int size1 = 1;
+
+    for(int i=1;i<sviSimboli.size();i++){
+        Simbol* simbol = sviSimboli[i];
+        size1 += simbol->getName().size() + 2;  //.\0
+    }
+
+    char* buffer_strtab = (char*)malloc(size1);
+    if (!buffer_strtab) return 0;
+
+    section_size_strtab=size1;
+
+    int offset1 = 0;
+    buffer_strtab[offset1++] = '\0';
+
+    for(int i=0;i<sviSimboli.size();i++){
+        Simbol* simbol = sviSimboli[i];
+        buffer_strtab[offset1++] = '.';  // dodaj tacku
+        std::memcpy(buffer_strtab + offset1, simbol->getName().c_str(), simbol->getName().size());
+        offset1 += simbol->getName().size();
+        buffer_strtab[offset1++] = '\0';
+    }
+
+    printf("BUFFER:\n");
+    printf("BUFFER SIZE: %d\n", size1);
+    /*fwrite(buffer, 1, size, stdout);
+    printf("\n");*/
+
+
+    /* .strtab */
+    strtab.assign(buffer_strtab, buffer_strtab + section_size_strtab);
+    i1 = 0;
+    while (i1 < strtab.size()) {
+        printf("[%d] %s\n", i1, (char*)&strtab[i1]);
+        i1 += strlen((char*)&strtab[i1]) + 1;
+    }
+
+
+
 
     
 
