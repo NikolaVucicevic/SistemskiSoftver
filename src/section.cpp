@@ -25,6 +25,10 @@ int Sekcija::getSize() const {
     return byteCode;
 }
 
+int Sekcija::getNdx() const {
+    return ndx;
+}
+
 // Setteri
 void Sekcija::setName(const std::string& name) {
     this->name = name;
@@ -44,6 +48,10 @@ void Sekcija::addByte(byte b) {
 
 void Sekcija::addRelocation(Relocation* r) {
     relokacije.push_back(r);
+}
+
+void Sekcija::setNdx(int ndx) {
+    this->ndx = ndx;
 }
 
 const std::vector<Relocation*>& Sekcija::getRelokacije() const {

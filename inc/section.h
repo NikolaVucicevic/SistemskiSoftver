@@ -12,6 +12,7 @@ private:
     int base;
     int size;
     std::vector<byte> byteCode;
+    int ndx;
 
     std::vector<Relocation*> relokacije; // ← OVO
 
@@ -25,12 +26,14 @@ public:
     int getBase() const;
     int getSize() const;
     std::vector<byte>& getByteCode();
+    int getNdx() const;
 
     // Setteri
     void setName(const std::string& name);
     void setBase(int base);
     void setSize(int size);
     void addByte(byte b);
+    void setNdx(int ndx);
 
     void addRelocation(Relocation* r);
     const std::vector<Relocation*>& getRelokacije() const;

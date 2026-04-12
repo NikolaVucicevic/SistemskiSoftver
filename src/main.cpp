@@ -156,7 +156,7 @@ int generisi_elf() {
     int offset1 = 0;
     buffer_strtab[offset1++] = '\0';
 
-    for(int i=0;i<sviSimboli.size();i++){
+    for(int i=1;i<sviSimboli.size();i++){
         Simbol* simbol = sviSimboli[i];
         buffer_strtab[offset1++] = '.';  // dodaj tacku
         std::memcpy(buffer_strtab + offset1, simbol->getName().c_str(), simbol->getName().size());
