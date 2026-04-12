@@ -225,7 +225,7 @@ std::vector<Sekcija*>& DataTable::getOrderedGen() {
     ordered.push_back(nova2);
     ordered.push_back(nova3);
 
-    for(int i=1;i<ordered.size();i++){
+    for(int i=0;i<ordered.size();i++){
         ordered[i]->setNdx(i);
     }
     
@@ -244,10 +244,11 @@ void DataTable::napraviVektorSimbola(){
     orderedSimboli.push_back(undef);
     for (auto& par : simboli) {
         Simbol* s = par.second;
-        if(!s->getSectionOwner() || s->getSectionOwner()->getName()!=s->getName()){
-            //sad ubacujemo
-            orderedSimboli.push_back(s);
-        }
+        orderedSimboli.push_back(s);
+    }
+
+    for(int i=0;i<orderedSimboli.size();i++){
+        orderedSimboli[i]->setNdx(i);
     }
     
 }

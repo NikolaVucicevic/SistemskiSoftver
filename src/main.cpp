@@ -94,6 +94,34 @@ std::vector<uint8_t> shstrtab;
 std::vector<Elf64_Shdr> sectionHeaders;
 
 
+void generisiHeader(){
+    elfHeader.e_ident[EI_MAG0] = 0x7f;
+    elfHeader.e_ident[EI_MAG1] = 'E';
+    elfHeader.e_ident[EI_MAG2] = 'L';
+    elfHeader.e_ident[EI_MAG3] = 'F';
+    elfHeader.e_ident[EI_CLASS] = ELFCLASS64;
+    elfHeader.e_ident[EI_DATA] = ELFDATA2LSB;
+    elfHeader.e_ident[EI_VERSION] = EV_CURRENT;
+    elfHeader.e_ident[EI_OSABI] = ELFOSABI_SYSV;
+    elfHeader.e_ident[EI_ABIVERSION] = 0;
+
+    elfHeader.e_type = ET_REL;
+    elfHeader.e_machine = EM_X86_64;
+    elfHeader.e_version = EV_CURRENT;
+    elfHeader.e_entry = 0;
+    elfHeader.e_phoff = 0;
+    elfHeader.e_shoff = 0; //OFFSET(elfFile, sectionHeaderTable);
+    elfHeader.e_flags = 0;
+    elfHeader.e_ehsize = sizeof(Elf64_Ehdr);
+    elfHeader.e_phentsize = 0;
+    elfHeader.e_phnum = 0;
+    elfHeader.e_shentsize = sizeof(Elf64_Shdr);
+    //ovo je izmenjeno
+    elfHeader.e_shnum = sveSekcije.size();
+    elfHeader.e_shstrndx = sveSekcije.size()-1;
+}
+
+
 
 int generisi_elf() {
     printf("aaaa\n");
@@ -145,7 +173,9 @@ int generisi_elf() {
 
     for(int i=1;i<sviSimboli.size();i++){
         Simbol* simbol = sviSimboli[i];
-        size1 += simbol->getName().size() + 2;  //.\0
+        if(!simbol->getSectionOwner() || simbol->getSectionOwner()->getName()!=simbol->getName()){
+            size1 += simbol->getName().size() + 1;  //.\0
+        }
     }
 
     char* buffer_strtab = (char*)malloc(size1);
@@ -158,10 +188,12 @@ int generisi_elf() {
 
     for(int i=1;i<sviSimboli.size();i++){
         Simbol* simbol = sviSimboli[i];
-        buffer_strtab[offset1++] = '.';  // dodaj tacku
-        std::memcpy(buffer_strtab + offset1, simbol->getName().c_str(), simbol->getName().size());
-        offset1 += simbol->getName().size();
-        buffer_strtab[offset1++] = '\0';
+        if(!simbol->getSectionOwner() || simbol->getSectionOwner()->getName()!=simbol->getName()){
+            std::memcpy(buffer_strtab + offset1, simbol->getName().c_str(), simbol->getName().size());
+            offset1 += simbol->getName().size();
+            buffer_strtab[offset1++] = '\0';
+        }
+    
     }
 
     printf("BUFFER:\n");
@@ -179,6 +211,23 @@ int generisi_elf() {
     }
 
 
+    generisiHeader();
+
+
+    FILE* f = fopen("test.o", "wb");
+
+    fwrite(&elfHeader, sizeof(Elf64_Ehdr), 1, f);
+
+    fwrite(shstrtab.data(), 1, shstrtab.size(), f);
+
+    fwrite(strtab.data(), 1, strtab.size(), f);
+
+    fwrite(sectionHeaders.data(),
+        sizeof(Elf64_Shdr),
+        sectionHeaders.size(),
+        f);
+
+    fclose(f);
 
 
     
