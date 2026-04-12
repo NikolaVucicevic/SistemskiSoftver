@@ -37,8 +37,14 @@ void DataTable::addSymbol(Simbol* simbol) {
 
 void DataTable::addSection(Sekcija* sekcija) {
     if (!sekcija) return;
+    
     if (sekcije.find(sekcija->getName()) == sekcije.end()) {
         sekcije[sekcija->getName()] = sekcija;
+        if(ordered.empty()){
+            Sekcija* nedef = new Sekcija("",0,0);
+            ordered.push_back(nedef);
+        }
+        ordered.push_back(sekcija);
     }
     this->currentSection = sekcija;
 }
@@ -195,32 +201,32 @@ const std::unordered_map<std::string,Sekcija*>& DataTable::getSekcije() const {
     return sekcije;
 }
 
-char* DataTable::imena_sekcija() {
-    int size = 1;
 
-    for (auto& [ime, sekcija] : sekcije) {
-        size += ime.size() + 1;
+
+
+std::vector<Sekcija*>& DataTable::getOrderedGen() {
+    
+    int size=ordered.size();
+    for(int i=0;i<size;i++){
+        if(ordered[i]->getRelokacije().size()>0){
+            std::string ime = "rela."+ordered[i]->getName();
+            Sekcija* nova = new Sekcija(ime, 0, 0);
+            ordered.push_back(nova);
+        }
     }
 
-    char* buffer = (char*)malloc(size);
-    if (!buffer) return nullptr;
+    Sekcija* nova0 = new Sekcija("bss", 0, 0);
+    Sekcija* nova1 = new Sekcija("symtab", 0, 0);
+    Sekcija* nova2 = new Sekcija("strtab", 0, 0);
+    Sekcija* nova3 = new Sekcija("shstrtab", 0, 0);
 
-    int offset = 0;
-    buffer[offset++] = '\0';
+    ordered.push_back(nova0);
+    ordered.push_back(nova1);
+    ordered.push_back(nova2);
+    ordered.push_back(nova3);
 
-    for (auto& [ime, sekcija] : sekcije) {
-        //sekcija->name_offset = offset;
+    return ordered;
 
-        std::memcpy(buffer + offset, ime.c_str(), ime.size());
-        offset += ime.size();
+    
 
-        buffer[offset++] = '\0';
-    }
-
-    printf("BUFFER:\n");
-    printf("BUFFER SIZE: %d\n", size);
-    fwrite(buffer, 1, size, stdout);
-    printf("\n");
-
-    return buffer;
 }

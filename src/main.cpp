@@ -4,6 +4,8 @@
 #include "main.h"
 #include "parser.tab.h"
 #include <dataTable.h>
+#include <iomanip>
+#include <cstring>
 
 
 #define STRTAB        \
@@ -79,10 +81,40 @@ extern int yylex();
 extern FILE* yyin;
 extern void yyrestart(FILE*);
 
+std::vector<Sekcija*> sveSekcije;
+
 
 int generisi_elf() {
-    DataTable::getInstance().imena_sekcija();
     printf("aaaa\n");
+
+    sveSekcije = DataTable::getInstance().getOrderedGen();
+    printf("%zu\n", sveSekcije.size());
+
+    int size = 1;
+
+    for(int i=1;i<sveSekcije.size();i++){
+        Sekcija* sekcija = sveSekcije[i];
+        size += sekcija->getName().size() + 2;  //.\0
+    }
+
+    char* buffer = (char*)malloc(size);
+    if (!buffer) return 0;
+
+    int offset = 0;
+    buffer[offset++] = '\0';
+
+    for(int i=1;i<sveSekcije.size();i++){
+        Sekcija* sekcija = sveSekcije[i];
+        buffer[offset++] = '.';  // dodaj tacku
+        std::memcpy(buffer + offset, sekcija->getName().c_str(), sekcija->getName().size());
+        offset += sekcija->getName().size();
+        buffer[offset++] = '\0';
+    }
+
+    printf("BUFFER:\n");
+    printf("BUFFER SIZE: %d\n", size);
+    fwrite(buffer, 1, size, stdout);
+    printf("\n");
 
     struct ElfFile
     {
@@ -94,7 +126,7 @@ int generisi_elf() {
         uint8_t strtab[SECTION_SIZE_STRTAB];
         Elf64_Rela relaText[1];
         uint8_t shstrtab[SECTION_SIZE_SHSTRTAB];
-        Elf64_Shdr sectionHeaderTable[8];
+        Elf64_Shdr sectionHeaderTable[8]; //koliko sekcija ima
     };
 
     struct ElfFile elfFile = {};
