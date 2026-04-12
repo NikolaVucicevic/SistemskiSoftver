@@ -213,6 +213,42 @@ int generisi_elf() {
 
     generisiHeader();
 
+    for(int i=0;i<sviSimboli.size();i++){
+        Simbol* s = sviSimboli[i];
+
+        Elf64_Sym sym = {};
+
+        
+        sym.st_value = s->getValue();
+        sym.st_size = s->getSize();
+
+        if(s->getSectionOwner() && s->getSectionOwner()->getName()==s->getName()){
+            sym.st_name = getOffset(s->getName().c_str(), buffer_shstrtab, size);
+            sym.st_info = ELF64_ST_INFO(
+            STB_LOCAL,
+            STT_SECTION
+        );
+        }else if(s->getSectionOwner()){
+            sym.st_name = getOffset(s->getName().c_str(), buffer_strtab, size1);
+            sym.st_info = ELF64_ST_INFO(
+                s->isGlobal() ? STB_GLOBAL : STB_LOCAL,
+                STT_NOTYPE
+            );
+        }
+
+        
+
+        sym.st_other = 0;
+
+        sym.st_shndx = 0;
+        if(s->getSectionOwner()){
+            sym.st_shndx = s->getSectionOwner()->getNdx();
+        }
+
+        symtab.push_back(sym);
+        
+    }
+
 
     FILE* f = fopen("test.o", "wb");
 
@@ -221,6 +257,11 @@ int generisi_elf() {
     fwrite(shstrtab.data(), 1, shstrtab.size(), f);
 
     fwrite(strtab.data(), 1, strtab.size(), f);
+
+    fwrite(symtab.data(),
+       sizeof(Elf64_Sym),
+       symtab.size(),
+       f);
 
     fwrite(sectionHeaders.data(),
         sizeof(Elf64_Shdr),
