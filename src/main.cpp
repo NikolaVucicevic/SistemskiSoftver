@@ -88,6 +88,8 @@ int section_size_shstrtab;
 int section_size_strtab;
 
 Elf64_Ehdr elfHeader;
+std::vector<std::vector<uint8_t>> sectionData;
+std::vector<std::vector<Elf64_Rela>> relaSections;
 std::vector<Elf64_Sym> symtab;
 std::vector<uint8_t> strtab;
 std::vector<uint8_t> shstrtab;
@@ -248,11 +250,83 @@ int generisi_elf() {
         symtab.push_back(sym);
         
     }
+    
+    //sad dodajemo data text i tako to
+    int vel = sveSekcije.size();
+    for(int i=1;i< vel-4;i++){
+        // uzmi bytecode sekcije
+        std::vector<byte>& code = sveSekcije[i]->getByteCode();
+
+        // ubaci u sectionData (kopija)
+        sectionData.push_back(
+            std::vector<uint8_t>(code.begin(), code.end())
+        );
+
+        if(sveSekcije[i]->getRelokacije().size()>0){
+            vel--;
+        }
+
+    }
+
+    //sad relokacione  od vel do size()-4
+
+    
+    vel = vel-4;
+    printf("%d\n", vel);
+    const std::unordered_map<std::string,Simbol*>& mapaSimbola = DataTable::getInstance().getSimboli();
+    for(int i=vel;i< sveSekcije.size()-4;i++){
+        // uzmi bytecode sekcije
+        Sekcija* sekcija = sveSekcije[i];
+        printf("Ubacujemo sad ovo\n");
+        printf("%s\n", sekcija->getName().c_str());
+        const std::vector<Relocation*>& rels = sekcija->getRelokacije();
+
+        std::vector<Elf64_Rela> jednaRelaSekcija; // ← za ovu sekciju
+
+        for(auto r : rels){
+            // ovde imaš svaki Relocation*
+            Elf64_Rela rela = {};
+
+            rela.r_offset = r->getOffset();   // gde u sekciji ide relokacija
+            rela.r_addend = r->getAddend();   // dodatak
+
+            // indeks simbola u symtab
+            int symIndex;
+            auto it = mapaSimbola.find(r->getSimbol());
+            if (it != mapaSimbola.end()) {
+                symIndex = it->second->getNum();
+            }
+            
+
+            // tip relokacije (R_ABS ili R_PC_REL)
+            int type = (r->getTip() == R_PC_REL) ? R_X86_64_PC32 : R_X86_64_32;
+
+            // pakovanje u r_info
+            rela.r_info = ELF64_R_INFO(symIndex, type);
+
+            jednaRelaSekcija.push_back(rela); // ← UBACUJEŠ RELA
+        }
+
+        if (!jednaRelaSekcija.empty()) {
+            relaSections.push_back(jednaRelaSekcija); // ← UBACUJEŠ SEKCIJU
+        }
+
+    }
+
+    
+
 
 
     FILE* f = fopen("test.o", "wb");
 
     fwrite(&elfHeader, sizeof(Elf64_Ehdr), 1, f);
+
+    for (int i = 0; i < sectionData.size(); i++) {
+        fwrite(sectionData[i].data(),
+           1,
+           sectionData[i].size(),
+           f);
+    }
 
     fwrite(shstrtab.data(), 1, shstrtab.size(), f);
 

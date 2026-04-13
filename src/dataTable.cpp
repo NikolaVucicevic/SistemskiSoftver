@@ -86,7 +86,7 @@ void DataTable::printTable() {
 
     std::cout << std::endl;
     std::cout << "================= TABELA SEKCIJA =================" << std::endl;
-    std::cout << "Name\tBase\tSize" << std::endl;
+    std::cout << "Name\tBase\tSize\tNdx" << std::endl;
     std::cout << "--------------------------------------------------" << std::endl;
 
     for (const auto& par : sekcije) {
@@ -96,7 +96,8 @@ void DataTable::printTable() {
         std::cout
             << sec->getName() << "\t"
             << std::hex << "0x" << sec->getBase() << std::dec << "\t"
-            << sec->getSize()
+            << sec->getSize() << "\t"
+            << sec->getNdx() 
             << std::endl;
         std::cout<<" sadrzaj \n";
         for (byte b : sec->getByteCode()) {
@@ -206,11 +207,57 @@ const std::unordered_map<std::string,Sekcija*>& DataTable::getSekcije() const {
 
 std::vector<Sekcija*>& DataTable::getOrderedGen() {
     
+    /*int size=ordered.size();
+    for(int i=0;i<size;i++){
+        if(ordered[i]->getRelokacije().size()>0){
+            std::string ime = "rela."+ordered[i]->getName();
+            Sekcija* nova = new Sekcija(ime, 0, 0);
+
+            const std::vector<Relocation*>& rels = ordered[i]->getRelokacije();
+            //kopiramo relokacije
+            for (Relocation* r : rels) {
+                nova->addRelocation(r);  // samo kopira pointer
+            }
+
+            ordered.push_back(nova);
+        }
+    }
+
+    Sekcija* nova0 = new Sekcija("bss", 0, 0);
+    Sekcija* nova1 = new Sekcija("symtab", 0, 0);
+    Sekcija* nova2 = new Sekcija("strtab", 0, 0);
+    Sekcija* nova3 = new Sekcija("shstrtab", 0, 0);
+
+    ordered.push_back(nova0);
+    ordered.push_back(nova1);
+    ordered.push_back(nova2);
+    ordered.push_back(nova3);
+
+    for(int i=0;i<ordered.size();i++){
+        ordered[i]->setNdx(i);
+    }*/
+    
+
+    return ordered;
+
+    
+
+}
+
+void DataTable::napraviVektorSimbola(){
+
     int size=ordered.size();
     for(int i=0;i<size;i++){
         if(ordered[i]->getRelokacije().size()>0){
             std::string ime = "rela."+ordered[i]->getName();
             Sekcija* nova = new Sekcija(ime, 0, 0);
+
+            const std::vector<Relocation*>& rels = ordered[i]->getRelokacije();
+            //kopiramo relokacije
+            for (Relocation* r : rels) {
+                nova->addRelocation(r);  // samo kopira pointer
+            }
+
             ordered.push_back(nova);
         }
     }
@@ -228,15 +275,9 @@ std::vector<Sekcija*>& DataTable::getOrderedGen() {
     for(int i=0;i<ordered.size();i++){
         ordered[i]->setNdx(i);
     }
-    
 
-    return ordered;
 
-    
 
-}
-
-void DataTable::napraviVektorSimbola(){
 
     Simbol* undef = new Simbol();
     undef->setNdx(0);
@@ -247,8 +288,11 @@ void DataTable::napraviVektorSimbola(){
         orderedSimboli.push_back(s);
     }
 
-    for(int i=0;i<orderedSimboli.size();i++){
-        orderedSimboli[i]->setNdx(i);
+    for(int i=1;i<orderedSimboli.size();i++){
+        if(orderedSimboli[i]->getSectionOwner()){
+            orderedSimboli[i]->setNdx(orderedSimboli[i]->getSectionOwner()->getNdx());
+        }
+        orderedSimboli[i]->setNum(i);
     }
     
 }
